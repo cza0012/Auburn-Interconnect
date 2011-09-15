@@ -213,6 +213,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="admin\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

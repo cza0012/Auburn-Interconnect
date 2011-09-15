@@ -1,0 +1,705 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mark.Web.UI.WebControls.DateTimePicker</name>
+    </assembly>
+    <members>
+        <member name="T:Toolkit.Web.UI.WebControls.DateTimePickerResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.WebControls.DateTimePickerResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.WebControls.DateTimePickerResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.WebControls.DateTimePickerResources.ClearButtonText">
+            <summary>
+              Looks up a localized string similar to Clear.
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.WebControls.DateTimePickerResources.ClearButtonToolTipDate">
+            <summary>
+              Looks up a localized string similar to Clear the current date.
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.WebControls.DateTimePickerResources.ClearButtonToolTipDateTime">
+            <summary>
+              Looks up a localized string similar to Clear the current date/time.
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.WebControls.DateTimePickerResources.ClearButtonToolTipTime">
+            <summary>
+              Looks up a localized string similar to Clear the current time.
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.WebControls.DateTimePickerResources.DateTimePicker">
+             <summary>
+               Looks up a localized string similar to // DateTimePicker class
+            
+            var DateTimePicker = Toolkit.Base.extend(
+            {
+            	// Constructor
+            	constructor:function(config)
+            	{
+            		this.config = config;
+            		this.input = document.getElementById(config.id);
+            		if (this.config.minDate &amp;&amp; typeof this.config.minDate == &quot;number&quot;) this.config.minDate = new Date(this.config.minDate);
+            		if (this.config.maxDate &amp;&amp; typeof this.config.maxDate == &quot;number&quot;) this.config.maxDate = new Date(this.config.maxDate);
+            		this.config.minYear = (this.config.minDate ? this.config.minDa [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.WebControls.DateTimePickerResources.InvalidCulture">
+            <summary>
+              Looks up a localized string similar to Culture &apos;{0}&apos; is a neutral culture. It cannot be used in formatting and parsing and therefore cannot be set as the picker&apos;s current culture..
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.WebControls.DateTimePickerResources.NoPickersExceptionMessage">
+            <summary>
+              Looks up a localized string similar to At least one of the &quot;ShowDatePicker&quot; or &quot;ShowTimePicker&quot; properties must be set to true..
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.WebControls.DateTimePickerResources.SelectButtonText">
+            <summary>
+              Looks up a localized string similar to Select....
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.WebControls.DateTimePickerResources.SelectButtonToolTipDate">
+            <summary>
+              Looks up a localized string similar to Select a new date.
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.WebControls.DateTimePickerResources.SelectButtonToolTipDateTime">
+            <summary>
+              Looks up a localized string similar to Select a new date/time.
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.WebControls.DateTimePickerResources.SelectButtonToolTipTime">
+            <summary>
+              Looks up a localized string similar to Select a new time.
+            </summary>
+        </member>
+        <member name="T:Mark.Utilities">
+            <summary>
+            Utilities for <see cref="T:System.Array"/> instances.
+            </summary>
+            <summary>
+            Utilities for <see cref="T:System.Object"/> instances.
+            </summary>
+            <summary>
+            Utilities for <see cref="T:System.Text.StringBuilder"/> instances.
+            </summary>
+            <summary>
+            Utilities for <see cref="T:System.String"/> instances.
+            </summary>
+            <summary>
+            Utilities for <see cref="T:System.DateTime"/> instances.
+            </summary>
+        </member>
+        <member name="M:Mark.Utilities.ToCsv(System.Array,System.Boolean)">
+            <summary>
+            Converts a <see cref="T:System.Array"/> to a comma-separated list of values.
+            </summary>
+            <param name="array">The <see cref="T:System.Array"/> to convert.</param>
+            <param name="removeEmptyItems">If true, items evaluating to empty strings are excluded.</param>
+        </member>
+        <member name="M:Mark.Utilities.ToCsv(System.Array)">
+            <summary>
+            Converts a <see cref="T:System.Array"/> to a comma-separated list of values.
+            </summary>
+            <param name="array">The <see cref="T:System.Array"/> to convert.</param>
+        </member>
+        <member name="M:Mark.Utilities.ToStringClean(System.Object)">
+            <summary>
+            "Cleans" a the ToString() representation of the supplied object. Returns null if the the supplied object is null, the ToString() return value is null, a <see cref="T:System.DBNull"/> value, an empty string, or whitespace only. Otherwise, returns the ToString() return value trimmed of any leading/trailing whitespace.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> to clean.</param>
+        </member>
+        <member name="M:Mark.Utilities.ToGuid(System.Object)">
+            <summary>
+            Attempts to convert the supplied object to a <see cref="T:System.Guid"/>. Id the object is null or <see cref="F:System.DBNull.Value"/>, a <see cref="F:System.Guid.Empty"/> value is returned; otherwise, an attempt will be made to parse the object using one of the <see cref="T:System.Guid"/> constructors.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> to convert.</param>
+            <exception cref="T:System.FormatException">The format of obj is invalid.</exception>
+            <exception cref="T:System.OverflowException">The format of obj is invalid.</exception>
+            <exception cref="T:System.ArgumentException">obj is not 16 bytes long.</exception>
+        </member>
+        <member name="M:Mark.Utilities.ToBoolean(System.Object,System.Boolean)">
+            <summary>
+            Attempts to convert an object to a <see cref="T:System.Boolean"/> value.
+            </summary>
+            <param name="value">The <see cref="T:System.Object"/> to convert.</param>
+            <param name="returnFalseIfUnparseable">If true and parsing fails, returns false. Otherwise, an exception is thrown.</param>
+            <exception cref="T:System.Exception"/>
+        </member>
+        <member name="M:Mark.Utilities.ToBoolean(System.Object)">
+            <summary>
+            Attempts to convert an object to a <see cref="T:System.Boolean"/> value.
+            </summary>
+            <param name="value">The <see cref="T:System.Object"/> to convert.</param>
+        </member>
+        <member name="M:Mark.Utilities.ToJson(System.Object)">
+            <summary>
+            Returns a JSON (JavaScript Object Notation) serialisation of the object.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> to convert.</param>
+        </member>
+        <member name="M:Mark.Utilities.IsInt16(System.Object)">
+            <summary>
+            Returns true if the passed object's string representation can be parsed as a <see cref="T:System.Int16"/>; Otherwise, returns false;
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> to check.</param>
+        </member>
+        <member name="M:Mark.Utilities.IsInt32(System.Object)">
+            <summary>
+            Returns true if the passed object's string representation can be parsed as a <see cref="T:System.Int32"/>; Otherwise, returns false;
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> to check.</param>
+        </member>
+        <member name="M:Mark.Utilities.IsInt64(System.Object)">
+            <summary>
+            Returns true if the passed object's string representation can be parsed as a <see cref="T:System.Int64"/>; Otherwise, returns false;
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> to check.</param>
+        </member>
+        <member name="M:Mark.Utilities.IsDecimal(System.Object)">
+            <summary>
+            Returns true if the passed object's string representation can be parsed as a <see cref="T:System.Decimal"/>; Otherwise, returns false;
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> to check.</param>
+        </member>
+        <member name="M:Mark.Utilities.IsBoolean(System.Object)">
+            <summary>
+            Returns true if the passed object's string representation can be parsed as a <see cref="T:System.Boolean"/>; Otherwise, returns false;
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> to check.</param>
+        </member>
+        <member name="M:Mark.Utilities.BinarySerialise(System.Object)">
+            <summary>
+            Binary-serialises the supplied object and returns the serialised data as a byte array.
+            </summary>
+            <param name="obj">The object to serialise.</param>
+        </member>
+        <member name="M:Mark.Utilities.BinarySerialise(System.Object,System.IO.Stream)">
+            <summary>
+            Binary-serialises the supplied object and writes the serialised data to the supplied stream.
+            </summary>
+            <param name="obj">The object to serialise.</param>
+            <param name="stream">The stream to write to.</param>
+        </member>
+        <member name="M:Mark.Utilities.AppendJavascriptObjectLine(System.Text.StringBuilder,System.String,System.Object,System.Boolean,System.Boolean)">
+            <summary>
+            Appends a JavaScript object name/value pair line (e.g. name:'value') to the end of the supplied <see cref="T:System.Text.StringBuilder"/> object.
+            </summary>
+            <param name="stringBuilder">The <see cref="T:System.Text.StringBuilder"/> object to append to.</param>
+            <param name="objectName">The name of the Javascript object.</param>
+            <param name="value">The value of the Javascript object.</param>
+            <param name="appendComma">If true, appends a comma character to the end of the string.</param>
+            <param name="appendNewline">If true, appends a newline character to the end of the string.</param>
+        </member>
+        <member name="M:Mark.Utilities.AppendJavascriptObjectLine(System.Text.StringBuilder,System.String,System.Object,System.Boolean)">
+            <summary>
+            Appends a JavaScript object name/value pair line (e.g. name:'value') to the end of the supplied <see cref="T:System.Text.StringBuilder"/> object.
+            </summary>
+            <param name="stringBuilder">The <see cref="T:System.Text.StringBuilder"/> object to append to.</param>
+            <param name="objectName">The name of the Javascript object.</param>
+            <param name="value">The value of the Javascript object.</param>
+            <param name="appendComma">If true, appends a comma character to the end of the string.</param>
+        </member>
+        <member name="M:Mark.Utilities.AppendJavascriptObjectLine(System.Text.StringBuilder,System.String,System.Object)">
+            <summary>
+            Appends a JavaScript object name/value pair line (e.g. name:'value',) to the end of the supplied <see cref="T:System.Text.StringBuilder"/> object. Includes a comma character at the end of the line.
+            </summary>
+            <param name="stringBuilder">The <see cref="T:System.Text.StringBuilder"/> object to append to.</param>
+            <param name="objectName">The name of the Javascript object.</param>
+            <param name="value">The value of the Javascript object.</param>
+        </member>
+        <member name="M:Mark.Utilities.Clean(System.String)">
+            <summary>
+            Returns null if this string is null, an empty string, or whitespace only. Otherwise, returns this string trimmed of any leading/trailing whitespace.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to clean.</param>
+        </member>
+        <member name="M:Mark.Utilities.IsNullOrEmpty(System.String,System.Boolean)">
+            <summary>
+            Similar to the static <see cref="M:System.String.IsNullOrEmpty(System.String)"/>, but optionally treats whitespace-ony strings as empty.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to test.</param>
+            <param name="treatWhitespaceOnlyAsEmpty">If true, treats whitespace-only strings as empty.</param>
+        </member>
+        <member name="M:Mark.Utilities.IsNullOrEmpty(System.String)">
+            <summary>
+            Similar to the static <see cref="M:System.String.IsNullOrEmpty(System.String)"/>, except whitespace-only strings are also considered empty.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to test.</param>
+        </member>
+        <member name="M:Mark.Utilities.IsInt16(System.String)">
+            <summary>
+            Returns true if the passed string can be parsed as a <see cref="T:System.Int16"/>; Otherwise, returns false;
+            </summary>
+            <param name="value">The string to test.</param>
+        </member>
+        <member name="M:Mark.Utilities.IsInt32(System.String)">
+            <summary>
+            Returns true if the passed string can be parsed as a <see cref="T:System.Int32"/>; Otherwise, returns false;
+            </summary>
+            <param name="value">The string to test.</param>
+        </member>
+        <member name="M:Mark.Utilities.IsInt64(System.String)">
+            <summary>
+            Returns true if the passed string can be parsed as a <see cref="T:System.Int64"/>; Otherwise, returns false;
+            </summary>
+            <param name="value">The string to test.</param>
+        </member>
+        <member name="M:Mark.Utilities.IsDecimal(System.String)">
+            <summary>
+            Returns true if the passed string can be parsed as a <see cref="T:System.Decimal"/>; Otherwise, returns false;
+            </summary>
+            <param name="value">The string to test.</param>
+        </member>
+        <member name="M:Mark.Utilities.IsBoolean(System.String)">
+            <summary>
+            Returns true if the passed string can be parsed as a <see cref="T:System.Boolean"/>; Otherwise, returns false;
+            </summary>
+            <param name="value">The string to test.</param>
+        </member>
+        <member name="M:Mark.Utilities.IsGuid(System.String)">
+            <summary>
+            Returns true if the passed string can be parsed as a <see cref="T:System.Guid"/>; Otherwise, returns false;
+            </summary>
+            <param name="value">The string to test.</param>
+        </member>
+        <member name="M:Mark.Utilities.ToBoolean(System.String,System.Boolean)">
+            <summary>
+            Attempts to convert the string to a <see cref="T:System.Boolean"/> value.
+            </summary>
+            <param name="value">The string to convert.</param>
+            <param name="returnFalseIfUnparseable">If true and parsing fails, returns false. Otherwise, an exception is thrown.</param>
+            <exception cref="T:System.Exception"/>
+        </member>
+        <member name="M:Mark.Utilities.ToBoolean(System.String)">
+            <summary>
+            Attempts to convert the string to a <see cref="T:System.Boolean"/> value.
+            </summary>
+            <param name="value">The string to convert.</param>
+        </member>
+        <member name="M:Mark.Utilities.Base64Encode(System.String)">
+            <summary>
+            Returns a Base64-encoded copy of the supplied string.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to encode.</param>
+        </member>
+        <member name="M:Mark.Utilities.Base64Decode(System.String)">
+            <summary>
+            Returns a Base64-decoded copy of the supplied string.
+            </summary>
+            <param name="value">The Base64-encoded <see cref="T:System.String"/> to decode.</param>
+        </member>
+        <member name="M:Mark.Utilities.ComputeMD5Hash(System.String)">
+            <summary>
+            Computes and returns the hexadecimal MD5 hash for the supplied string.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to hash.</param>
+        </member>
+        <member name="M:Mark.Utilities.RemoveLineFeeds(System.String,System.String)">
+            <summary>
+            Returns a copy of the supplied string with all line-feed identifiers (\r, \n) removed, and optionally replaces them with another string.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to process.</param>
+            <param name="replaceString">The string to replace the line-feeds with.</param>
+        </member>
+        <member name="M:Mark.Utilities.RemoveLineFeeds(System.String)">
+            <summary>
+            Returns a copy of this string with all line-feed identifiers (\r, \n) removed.
+            </summary>
+        </member>
+        <member name="M:Mark.Utilities.RemoveMarkupTags(System.String)">
+            <summary>
+            Returns a copy of the supplied string with all markup (HTML, XML etc) tags removed and spaces inserted in their place.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to process.</param>
+        </member>
+        <member name="M:Mark.Utilities.LinefeedsToHtml(System.String)">
+            <summary>
+            Returns a string containing CR/LF characters to HTML equivalents, i.e. a string with \n or \r\n replaced by &lt;br /&gt;.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to process.</param>
+        </member>
+        <member name="M:Mark.Utilities.LinefeedsToHtml(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Returns a string containing CR/LF characters to HTML equivalents, i.e. a string with \n or \r\n replaced by &lt;br /&gt;.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to process.</param>
+            <param name="selfClosing">If true, inserts self-closing tags (e.g. &lt;br /&gt;). If false, inserts HTML 4-style tags (e.g. &lt;br&gt;).</param>
+            <param name="uppercaseTag">If true, replacement tags are upper-cased, e.g. &lt;BR&gt;.</param>
+        </member>
+        <member name="M:Mark.Utilities.ToJavascript(System.String)">
+            <summary>
+            Returns a copy of the supplied string that is safe to use as an ECMAscript (Javascript, JScript) string literal.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to process.</param>
+        </member>
+        <member name="M:Mark.Utilities.ToBasicString(System.String)">
+            <summary>
+            Returns a "basic" copy of the supplied string - non-alphanumeric characters are replaced with their unicode number equivalents. Good for using as filenames etc. This is a one-way copy - the resulting string can not be reconstituted as the original.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to process.</param>
+        </member>
+        <member name="M:Mark.Utilities.Repeat(System.String,System.Int32)">
+            <summary>
+            Repeats the supplied string a given number of times.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to repeat.</param>
+            <param name="numberOfRepeats">The number of times to repeat the string.</param>
+        </member>
+        <member name="M:Mark.Utilities.ToEnum``1(System.String,System.Boolean)">
+            <summary>
+            Converts the supplied string into a <see cref="T:System.Enum"/> value.
+            </summary>
+            <typeparam name="T">The type of <see cref="T:System.Enum"/> to convert to.</typeparam>
+            <param name="value">The <see cref="T:System.String"/> to convert.</param>
+            <param name="ignoreCase">If true, ignore case; otherwise, regard case.</param>
+        </member>
+        <member name="M:Mark.Utilities.ToEnum``1(System.String)">
+            <summary>
+            Converts the supplied string into a <see cref="T:System.Enum"/> value.
+            </summary>
+            <typeparam name="T">The type of <see cref="T:System.Enum"/> to convert to.</typeparam>
+            <param name="value">The <see cref="T:System.String"/> to convert.</param>
+        </member>
+        <member name="M:Mark.Utilities.FromCsvToArray(System.String)">
+            <summary>
+            Converts the supplied string to an array from a comma-separated list of values.
+            </summary>
+            <param name="value">The comma-separated list of values to convert.</param>
+        </member>
+        <member name="M:Mark.Utilities.FromCsvToArray(System.String,System.Boolean)">
+            <summary>
+            Converts the supplied string to an array from a comma-separated list of values.
+            </summary>
+            <param name="value">The comma-separated list of values to convert.</param>
+            <param name="excludeEmptyValues">If true, empty values will be excluded from the array; otherwise, they will be included.</param>
+        </member>
+        <member name="M:Mark.Utilities.FromCsvToArray(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Converts the supplied string to an array from a comma-separated list of values.
+            </summary>
+            <param name="value">The comma-separated list of values to convert.</param>
+            <param name="excludeEmptyValues">If true, empty values will be excluded from the array; otherwise, they will be included.</param>
+            <param name="trimValues">If true, leading and trailing whitespace will be removed from each value.</param>
+        </member>
+        <member name="M:Mark.Utilities.Encrypt(System.String,System.String)">
+            <summary>
+            Performs simple password-based string encryption. Not to be used for anything serious!
+            </summary>
+            <param name="value">The string to be encrypted.</param>
+            <param name="password">The password.</param>
+            <returns>The encrypted string.</returns>
+        </member>
+        <member name="M:Mark.Utilities.Decrypt(System.String,System.String)">
+            <summary>
+            Decrypts a string that was encrypted by the accompanying Encrypt() method.
+            </summary>
+            <param name="cipherText">The encrypted string.</param>
+            <param name="password">The password that was used during encryption.</param>
+            <returns>The decrypted string.</returns>
+        </member>
+        <member name="M:Mark.Utilities.ToJavascriptMilliseconds(System.DateTime)">
+            <summary>
+            Converts a <see cref="T:System.DateTime"/> to a Javascript-compatible timestamp, i.e. the number of milliseconds since 1 Jan 1970.
+            </summary>
+            <param name="dateTime">The <see cref="T:System.DateTime"/> to convert.</param>
+        </member>
+        <member name="M:Mark.Utilities.ToIso8601(System.DateTime)">
+            <summary>
+            Converts a <see cref="T:System.DateTime"/> to an ISO 8601-conformant string.
+            </summary>
+            <param name="dateTime">The <see cref="T:System.DateTime"/> to convert.</param>
+        </member>
+        <member name="M:Mark.Utilities.Compare(System.DateTime,System.DateTime,System.Int64)">
+            <summary>
+            Compares two <see cref="T:System.DateTime"/> structures, factoring in any slight variations due to a source date/time type (e.g. from a database) not being as accurate as the .NET System.DateTime type.
+            </summary>
+            <param name="dateTime1">The first <see cref="T:System.DateTime"/> to compare.</param>
+            <param name="dateTime2">The second <see cref="T:System.DateTime"/> to compare.</param>
+            <param name="deviationTicks">The range of deviation (in ticks) whereby the values being compared can be considered equal. For example, if 1000 is supplied, the values being compared will be considered equal if dateTimeToCompare is within +- 1000 ticks of this instance's value.</param>
+            <returns>0 if equal; &lt; -1 if this instance is less than dateTimeToCompare; &gt; 1 if this instance is greater than dateTimeToCompare.</returns>
+        </member>
+        <member name="T:Mark.ArgumentStringNullOrEmptyException">
+            <summary>
+            The exception that is thrown when a null reference or empty string is passed to a method that does not accept it as a valid argument. Throwers may or may not consider whitespace-only strings to be empty.
+            </summary>
+        </member>
+        <member name="M:Mark.ArgumentStringNullOrEmptyException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Mark.ArgumentStringNullOrEmptyException"/> class.
+            </summary>
+        </member>
+        <member name="M:Mark.ArgumentStringNullOrEmptyException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Mark.ArgumentStringNullOrEmptyException"/> class with the name of the parameter that causes this exception.
+            </summary>
+            <param name="paramName">The name of the parameter that caused the exception.</param>
+        </member>
+        <member name="M:Mark.ArgumentStringNullOrEmptyException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Mark.ArgumentStringNullOrEmptyException"/> class with a specified error message and the exception that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for this exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="M:Mark.ArgumentStringNullOrEmptyException.#ctor(System.String,System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:Mark.ArgumentStringNullOrEmptyException"/> class with a specified error message and the name of the parameter that causes this exception.
+            </summary>
+            <param name="paramName">The name of the parameter that caused the exception.</param>
+            <param name="message">A message that describes the error.</param>
+        </member>
+        <member name="T:Mark.Web.UI.WebControls.DateTimePicker">
+            <summary>
+            A date/time picker text box.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.DateTime">
+            <summary>
+            Gets or sets the date/time displayed in the input field. The usage of this property is highly recommended over the <see cref="T:System.Web.UI.WebControls.TextBox"/>-inherited "Text" property.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.Text">
+            <summary>
+            Gets or sets the text displayed in the input field. It is highly recommended you use the "DateTime" property instaed of this property.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.ReadOnly">
+            <summary>
+            Gets or sets a value indicating whether the date/time value can be manually changed.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.ContainerCssClass">
+            <summary>
+            Gets or sets the CSS class applied to the container wrapping the text box control and buttons.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.SelectButtonCssClass">
+            <summary>
+            Gets or sets the CSS class applied to the select button.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.ClearButtonCssClass">
+            <summary>
+            Gets or sets the CSS class applied to the clear button.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.PickerCssClass">
+            <summary>
+            Gets or sets the CSS class applied to the pop-up picker container.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.MonthPickerCssClass">
+            <summary>
+            Gets or sets the CSS class applied to the month-picker row that is displayed inside the picker.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.CalendarCssClass">
+            <summary>
+            Gets or sets the CSS class applied to the calendar table that is displayed inside the picker.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.DateCellCssClass">
+            <summary>
+            Gets or sets the CSS class applied to the calendar table date cells.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.SelectedDateCellCssClass">
+            <summary>
+            Gets or sets the CSS class applied to the calendar table date cell of the currently selected date.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.TodayDateCellCssClass">
+            <summary>
+            Gets or sets the CSS class applied to the calendar table date cell for today's date.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.TimePickerRowCssClass">
+            <summary>
+            Gets or sets the CSS class applied to the time-picker row that is displayed inside the picker.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.SelectedDateTimeRowCssClass">
+            <summary>
+            Gets or sets the CSS class applied to the picker's selected date/time row.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.ButtonRowCssClass">
+            <summary>
+            Gets or sets the CSS class applied to the picker's button row.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.OKButtonCssClass">
+            <summary>
+            Gets or sets the CSS class applied to the picker's OK button.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.CancelButtonCssClass">
+            <summary>
+            Gets or sets the CSS class applied to the picker's cancel button.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.ShowDatePicker">
+            <summary>
+            Gets or sets a value indicating whether the date picker part of the control should be visible.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.ShowTimePicker">
+            <summary>
+            Gets or sets a value indicating whether the time picker part of the control should be visible.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.UseImageButtons">
+            <summary>
+            Gets or sets a value indicating whether image buttons should be displayed (instead of HTML form buttons).
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.SelectButtonText">
+            <summary>
+            Gets or sets the text displayed on the "Select" button (or as alt text if UseImageButtons is true).
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.ClearButtonText">
+            <summary>
+            Gets or sets the text displayed on the "Clear" button (or as alt text if UseImageButtons is true).
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.OKButtonText">
+            <summary>
+            Gets or sets the text displayed on the popup picker's "OK" button.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.CancelButtonText">
+            <summary>
+            Gets or sets the text displayed on the popup picker's "Cancel" button.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.NoCurrentValueText">
+            <summary>
+            Gets or sets the text displayed in the popup picker's when there is no current date/time value.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.SelectButtonImageUrl">
+            <summary>
+            Gets or sets the relative URL of the image to use to trigger the picker so a date/time can be selected.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.ClearButtonImageUrl">
+            <summary>
+            Gets or sets the relative URL of the image to use to clear the current date/time value.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.ShowClearButton">
+            <summary>
+            Gets or sets a value indicating whether the clear button should be displayed.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.PreviousMonthImageUrl">
+            <summary>
+            Gets or sets the relative URL of the image to use for the "previous month" button.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.NextMonthImageUrl">
+            <summary>
+            Gets or sets the relative URL of the image to use for the "next month" button.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.MinimumDate">
+            <summary>
+            Gets or sets the minimum date that can be selected using the date picker.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.MaximumDate">
+            <summary>
+            Gets or sets the maximum date that can be selected using the date picker.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.FirstDayOfWeek">
+            <summary>
+            Gets or sets the day of the week to display in the first day column of the <see cref="T:Mark.Web.UI.WebControls.DateTimePicker"/> control. If not set, uses the value supplied by the current culture.
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.Format">
+            <summary>
+            Gets or sets the format string to use for all date/time strings. If not set, uses one of the values supplied by the current culture - either <see cref="P:System.Globalization.DateTimeFormatInfo.LongDatePattern"/> ("D" format, for date-only values), <see cref="P:System.Globalization.DateTimeFormatInfo.LongTimePattern"/> ("T" format, for time-only values), or <see cref="P:System.Globalization.DateTimeFormatInfo.FullDateTimePattern"/> ("F" format, for full date/time values).
+            </summary>
+        </member>
+        <member name="P:Mark.Web.UI.WebControls.DateTimePicker.Culture">
+            <summary>
+            Gets or sets the culture to use for all date/time strings. This must be a culture name parseable by the <see cref="T:System.Globalization.CultureInfo"/> class, for example "en-AU". Note: if the "Format" property has been set, this value is ignored.
+            </summary>
+        </member>
+        <member name="T:Toolkit.Web.UI.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Toolkit.Web.UI.Resources.JavascriptDateTimeFormat">
+             <summary>
+               Looks up a localized string similar to var DateTimeFormatter = 
+            {
+            	dayNames:[{{{DayNames}}}],
+            	dayNamesInvariant:[{{{DayNamesInvariant}}}],
+            	abbreviatedDayNames:[{{{AbbreviatedDayNames}}}],
+            	abbreviatedDayNamesInvariant:[{{{AbbreviatedDayNamesInvariant}}}],
+            	monthNames:[{{{MonthNames}}}],
+            	monthNamesInvariant:[{{{MonthNamesInvariant}}}],
+            	abbreviatedMonthNames:[{{{AbbreviatedMonthNames}}}],
+            	abbreviatedMonthNamesInvariant:[{{{AbbreviatedMonthNamesInvariant}}}],
+            	amDesignator:&quot;{{{AMDesignator}}}&quot;,
+            	pmDesignator:&quot;{{{PMDesignator}}}&quot;,
+            	 [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="T:Toolkit.ExceptionMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Toolkit.ExceptionMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Toolkit.ExceptionMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Toolkit.ExceptionMessages.ArgumentStringNullOrEmpty">
+            <summary>
+              Looks up a localized string similar to Value can not be null or an empty string. Whitespace-only strings may or may not be considered empty..
+            </summary>
+        </member>
+        <member name="P:Toolkit.ExceptionMessages.ExtensionMethodInstanceNullReference">
+            <summary>
+              Looks up a localized string similar to The extension method &apos;{0}&apos; was called via a null reference..
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -54,6 +54,7 @@
                         <asp:MenuItem NavigateUrl="~/Events/Create.aspx" Text="Create Events"/>
                         <asp:MenuItem NavigateUrl="~/Connect/MyEvents.aspx" Text="My Events" />
                         <asp:MenuItem NavigateUrl="~/admin/UserManagement.aspx" Text="Users" />
+                        <asp:MenuItem NavigateUrl="~/admin/EventApproval.aspx" Text="Events" />
                         <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
                     </Items>
                 </asp:Menu>

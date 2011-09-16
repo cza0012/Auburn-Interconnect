@@ -15,7 +15,7 @@
             <div class="title" style="width: 100%">
             <table border="0" width="100%" style="width: 100%"><tr><td>
                 <h1>
-                    My ASP.NET Application
+                    Auburn InterConnect
                 </h1>
                 </td>
                 <td align="right">
@@ -53,6 +53,7 @@
                         <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home"/>
                         <asp:MenuItem NavigateUrl="~/Events/Create.aspx" Text="Create Events"/>
                         <asp:MenuItem NavigateUrl="~/Connect/MyEvents.aspx" Text="My Events" />
+                        <asp:MenuItem NavigateUrl="~/admin/UserManagement.aspx" Text="Users" />
                         <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
                     </Items>
                 </asp:Menu>

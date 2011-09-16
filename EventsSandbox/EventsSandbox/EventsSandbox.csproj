@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="admin\UserManagement.aspx" />
     <Content Include="Connect\EventRoster.aspx" />
     <Content Include="Connect\MyEvents.aspx" />
     <Content Include="EventEntryCntrl.ascx" />
@@ -107,6 +108,13 @@
     </Compile>
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\UserManagement.aspx.cs">
+      <DependentUpon>UserManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\UserManagement.aspx.designer.cs">
+      <DependentUpon>UserManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="Connect\EventRoster.aspx.cs">
       <DependentUpon>EventRoster.aspx</DependentUpon>
@@ -213,7 +221,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="admin\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

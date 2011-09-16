@@ -34,6 +34,11 @@ namespace EventsSandbox
             set { isAuStud = value; }
         }
 
+        public bool IsAdministrator
+        {
+            get { return IsAdmin(this.uid); }
+        }
+
         public static bool IsAdmin(int userId)
         {
             string queryStr = "SELECT isAdmin FROM Users " +
@@ -44,7 +49,7 @@ namespace EventsSandbox
                 command.Parameters.Add(new SqlParameter("id", userId));
                 con.Open();
                 object obj = command.ExecuteScalar();
-                return ((int)obj > 0);
+                return (bool)obj;
             }
         }
 

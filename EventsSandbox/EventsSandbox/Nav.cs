@@ -42,5 +42,10 @@ namespace EventsSandbox
             page.Response.Redirect(url, true);
             
         }
+
+        public static void GoHome(Page page)
+        {
+            page.Response.Redirect("~/Default.aspx", true);
+        }
     }
 }

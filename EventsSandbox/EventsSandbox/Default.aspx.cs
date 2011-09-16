@@ -52,7 +52,8 @@ namespace EventsSandbox
         private SqlDataReader GetApprovedFutureEvents()
         {
             string queryStr = "SELECT * FROM [Events] " +
-                "WHERE adminOk=1 AND hostOk=1 AND endTime>@now";
+                "WHERE adminOk=1 AND hostOk=1 AND endTime>@now " +
+                "ORDER BY [Events].startTime";
 
             SqlConnection con = new SqlConnection(Config.SqlConStr);
             SqlCommand command = new SqlCommand(queryStr, con);

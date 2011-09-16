@@ -1,4 +1,4 @@
-﻿#define BYPASS_AU_AUTH
+﻿//#define BYPASS_AU_AUTH
 
 using System;
 using System.Collections.Generic;

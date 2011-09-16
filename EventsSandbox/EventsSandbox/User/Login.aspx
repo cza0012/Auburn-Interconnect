@@ -43,7 +43,7 @@
     <p>
     Password
     <br />
-        <asp:TextBox ID="aupwdTxb" runat="server" Width="200px"></asp:TextBox>
+        <asp:TextBox ID="aupwdTxb" runat="server" Width="200px" TextMode="Password"></asp:TextBox>
     </p>
     </asp:Panel>
     

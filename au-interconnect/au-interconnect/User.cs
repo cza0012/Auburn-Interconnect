@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.Common;
 
 namespace AUInterconnect
 {
@@ -41,16 +42,7 @@ namespace AUInterconnect
 
         public static bool IsAdmin(int userId)
         {
-            string queryStr = "SELECT isAdmin FROM Users " +
-                "WHERE uid=@id";
-            using (SqlConnection con = new SqlConnection(Config.SqlConStr))
-            {
-                SqlCommand command = new SqlCommand(queryStr, con);
-                command.Parameters.Add(new SqlParameter("id", userId));
-                con.Open();
-                object obj = command.ExecuteScalar();
-                return (bool)obj;
-            }
+            return (bool)GetScalarValueForUser("isAdmin", userId);
         }
 
         public string FirstName
@@ -81,19 +73,7 @@ namespace AUInterconnect
         /// <exception cref="SqlException"></exception>
         private string GetLastName(int userId)
         {
-            string queryStr = "SELECT lname FROM Users " +
-                "WHERE uid=@id";
-
-            using (SqlConnection con = new SqlConnection(Config.SqlConStr))
-            {
-                SqlCommand command = new SqlCommand(queryStr, con);
-                command.Parameters.Add(new SqlParameter("id", userId));
-                con.Open();
-                object obj = command.ExecuteScalar();
-                if (obj == null || obj == DBNull.Value)
-                    return null;
-                return (string)obj;
-            }
+            return (string)GetScalarValueForUser("lname", userId);
         }
 
         /// <summary>
@@ -104,18 +84,34 @@ namespace AUInterconnect
         /// <exception cref="SqlException"></exception>
         public static string GetFirstName(int userId)
         {
-            string queryStr = "SELECT fname FROM Users " +
-                "WHERE uid=@id";
+            return (string)GetScalarValueForUser("fname", userId);
+        }
 
-            using (SqlConnection con = new SqlConnection(Config.SqlConStr))
+        private static object GetScalarValueForUser(String fieldName, int userId)
+        {
+            using (DbConnection con = DataUtil.GetDbConnection())
             {
-                SqlCommand command = new SqlCommand(queryStr, con);
-                command.Parameters.Add(new SqlParameter("id", userId));
                 con.Open();
-                object obj = command.ExecuteScalar();
-                if (obj == null || obj == DBNull.Value)
-                    return null;
-                return (string)obj;
+                using (DbCommand command = con.CreateCommand())
+                {
+                    command.CommandText = "SELECT @param FROM Users WHERE uid=@id";
+                    command.CommandType = CommandType.Text;
+
+                    DbParameter param = command.CreateParameter();
+                    param.ParameterName = "param";
+                    param.Value = fieldName;
+                    command.Parameters.Add(param);
+
+                    param = command.CreateParameter();
+                    param.ParameterName = "id";
+                    param.Value = userId;
+                    command.Parameters.Add(param);
+
+                    object obj = command.ExecuteScalar();
+                    if (obj == null || obj == DBNull.Value)
+                        return null;
+                    return obj;
+                }
             }
         }
 

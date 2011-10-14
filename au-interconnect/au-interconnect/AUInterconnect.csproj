@@ -139,6 +139,7 @@
       <DependentUpon>MyEvents.aspx</DependentUpon>
     </Compile>
     <Compile Include="Const.cs" />
+    <Compile Include="DataUtil.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventEntryCntrl.ascx.cs">
       <DependentUpon>EventEntryCntrl.ascx</DependentUpon>

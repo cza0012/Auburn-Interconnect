@@ -1,15 +1,72 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Signup.aspx.cs" Inherits="AUInterconnect.Events.Signup" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+<style>
+.fieldName
+{
+    font-weight:bold;
+}
+    .style1
+    {
+        color: #C0C0C0;
+    }
+</style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<h2><asp:Literal ID="titleLit" runat="server"></asp:Literal></h2>
+    <h2>Event Sign Up</h2>
 
     <asp:Literal ID="ErrorLit" runat="server"></asp:Literal>
 
-    <p>
-        Number of additional friends I plan to bring <asp:TextBox ID="addTxb" runat="server" Width="41px"></asp:TextBox>
-    </p>
-<div style="padding: 5px; width: 524px; background-color: #FFFFCC;">Registration
+    <table cellspacing="5">
+        <tr>
+            <td class="fieldName">Event Name</td>
+            <td>
+                <asp:Literal ID="EventName" runat="server"></asp:Literal></td>
+        </tr>
+        <tr>
+            <td class="fieldName">Hosted By</td>
+            <td>
+                <asp:Literal ID="EventHost" runat="server"></asp:Literal></td>
+        </tr>
+        <tr>
+            <td class="fieldName">Date</td>
+            <td>
+                <asp:Literal ID="Date" runat="server"></asp:Literal></td>
+        </tr>
+        <tr>
+            <td class="fieldName">Time</td>
+            <td>
+                <asp:Literal ID="Time" runat="server"></asp:Literal></td>
+        </tr>
+    </table>
+
+    <br />
+
+    <table cellspacing="5">
+        <tr>
+            <td>Number of guests<br />
+                <span class="style1">(Include yourself)</span></td>
+            <td>
+                <asp:TextBox ID="HeadCount" runat="server" Width="80px">1</asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td>Number of person
+                <br />
+                I can take<br />
+                <span class="style1">(Include yourself)</span></td>
+            <td>
+                <asp:TextBox ID="VehicleCap" runat="server" Width="80px">0</asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <asp:CheckBox ID="AgreeCheckbox" runat="server" 
+                    Text="I agree the term and conditions." />
+            </td>
+        </tr>
+    </table>
+
+<!-- div style="padding: 5px; width: 524px; background-color: #FFFFCC;">Registration
 <p>
 Please read the following information about Conference Management Service
 (CMT) so that you can better decide whether you wish to participate. 
@@ -39,10 +96,10 @@ Who can I contact if I have questions or problems?
 For questions about CMT, e-mail cmt@microsoft.com.
 
 
-Printable Privacy Statement and Terms of Use</div>
+Printable Privacy Statement and Terms of Use</div -->
 
     <br />
 
-    <asp:Button ID="regBtn" runat="server" Text="I Agree! Sign Me Up!" 
+    <asp:Button ID="regBtn" runat="server" Text="Sign Me Up!" 
         onclick="regBtn_Click" />
 </asp:Content>

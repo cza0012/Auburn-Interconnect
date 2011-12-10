@@ -51,11 +51,10 @@
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
                         <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home"/>
-                        <asp:MenuItem NavigateUrl="~/Events/Create.aspx" Text="Create Events"/>
+                        <asp:MenuItem NavigateUrl="~/Events/Create.aspx" Text="Propose an Event"/>
                         <asp:MenuItem NavigateUrl="~/Connect/MyEvents.aspx" Text="My Events" />
                         <asp:MenuItem NavigateUrl="~/admin/UserManagement.aspx" Text="Users" />
                         <asp:MenuItem NavigateUrl="~/admin/EventApproval.aspx" Text="Events" />
-                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
                     </Items>
                 </asp:Menu>
             </div>

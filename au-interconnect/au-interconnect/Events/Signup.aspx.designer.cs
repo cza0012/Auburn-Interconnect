@@ -13,15 +13,6 @@ namespace AUInterconnect.Events {
     public partial class Signup {
         
         /// <summary>
-        /// titleLit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal titleLit;
-        
-        /// <summary>
         /// ErrorLit control.
         /// </summary>
         /// <remarks>
@@ -31,13 +22,67 @@ namespace AUInterconnect.Events {
         protected global::System.Web.UI.WebControls.Literal ErrorLit;
         
         /// <summary>
-        /// addTxb control.
+        /// EventName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox addTxb;
+        protected global::System.Web.UI.WebControls.Literal EventName;
+        
+        /// <summary>
+        /// EventHost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal EventHost;
+        
+        /// <summary>
+        /// Date control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Date;
+        
+        /// <summary>
+        /// Time control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Time;
+        
+        /// <summary>
+        /// HeadCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox HeadCount;
+        
+        /// <summary>
+        /// VehicleCap control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox VehicleCap;
+        
+        /// <summary>
+        /// AgreeCheckbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AgreeCheckbox;
         
         /// <summary>
         /// regBtn control.

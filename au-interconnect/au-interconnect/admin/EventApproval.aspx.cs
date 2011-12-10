@@ -47,13 +47,13 @@ namespace AUInterconnect.admin
                         TableCell cell = null;
 
                         string eventUrl = "~/Events/EventDetails.aspx?" +
-                            Const.EventId + "=" + reader["id"];
+                            Const.EventId + "=" + reader["eventId"];
 
                         PartEventEntry entry =
                             (PartEventEntry)LoadControl("~/PartEventEntry.ascx");
-                        entry.EventTitle = reader["title"].ToString();
+                        entry.EventTitle = reader["eventName"].ToString();
                         entry.EventUrl = eventUrl;
-                        entry.EventId = (int)reader["id"];
+                        entry.EventId = (int)reader["eventId"];
                         entry.StartTime = (DateTime)reader["startTime"];
                         cell = new TableCell();
                         cell.Controls.Add(entry);
@@ -61,7 +61,7 @@ namespace AUInterconnect.admin
 
                         cell = new TableCell();
                         Literal status = new Literal();
-                        status.ID = "status_" + reader["id"].ToString();
+                        status.ID = "status_" + reader["eventId"].ToString();
                         status.Text = (bool)reader["eventSeen"] ? ((bool)reader["adminOk"] ? "<em>Approved</em>" : "<em>Denied</em>") : "";
                         cell.Controls.Add(status);
                         row.Cells.Add(cell);                        

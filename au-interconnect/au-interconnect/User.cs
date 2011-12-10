@@ -41,7 +41,7 @@ namespace AUInterconnect
 
         public static bool IsAdmin(int userId)
         {
-            string queryStr = "SELECT isAdmin FROM Users " +
+            string queryStr = "SELECT admin FROM Users " +
                 "WHERE uid=@id";
             using (SqlConnection con = new SqlConnection(Config.SqlConStr))
             {

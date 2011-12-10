@@ -8,7 +8,7 @@ namespace AUInterconnect
 {
     public class Config
     {
-        public const string SqlConStrName = "oitss1.auburn.edu";
+        public const string SqlConStrName = "dev";
 
         /// <summary>
         /// Returns the SQL database connection string.

@@ -13,67 +13,112 @@ namespace AUInterconnect.Events {
     public partial class EventDetails {
         
         /// <summary>
-        /// titleLit control.
+        /// EventName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal titleLit;
+        protected global::System.Web.UI.WebControls.Literal EventName;
         
         /// <summary>
-        /// hostLit control.
+        /// HostName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal hostLit;
+        protected global::System.Web.UI.WebControls.Literal HostName;
         
         /// <summary>
-        /// startLit control.
+        /// BigEventTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal startLit;
+        protected global::System.Web.UI.WebControls.Literal BigEventTime;
         
         /// <summary>
-        /// endLit control.
+        /// StartTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal endLit;
+        protected global::System.Web.UI.WebControls.Literal StartTime;
         
         /// <summary>
-        /// locLit control.
+        /// EndTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal locLit;
+        protected global::System.Web.UI.WebControls.Literal EndTime;
         
         /// <summary>
-        /// descLit control.
+        /// Desc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal descLit;
+        protected global::System.Web.UI.WebControls.Literal Desc;
         
         /// <summary>
-        /// spaceLit control.
+        /// Location control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal spaceLit;
+        protected global::System.Web.UI.WebControls.Literal Location;
+        
+        /// <summary>
+        /// MeetTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal MeetTime;
+        
+        /// <summary>
+        /// MeetLocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal MeetLocation;
+        
+        /// <summary>
+        /// Transportation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Transportation;
+        
+        /// <summary>
+        /// Equipments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Equipments;
+        
+        /// <summary>
+        /// Costs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Costs;
         
         /// <summary>
         /// regBtn control.

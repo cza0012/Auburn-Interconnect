@@ -27,10 +27,10 @@ namespace AUInterconnect
                     while (reader.Read())
                     {
                         string eventUrl = "Events/EventDetails.aspx?" +
-                            Const.EventId + "=" + reader["id"];
+                            Const.EventId + "=" + reader["eventId"];
                         EventEntryCntrl entry =
                             (EventEntryCntrl)LoadControl("EventEntryCntrl.ascx");
-                        entry.EventTitle = reader["title"].ToString();
+                        entry.EventTitle = reader["eventName"].ToString();
                         entry.EventUrl = eventUrl;
                         entry.StartTime = (DateTime)reader["startTime"];
 
@@ -52,7 +52,7 @@ namespace AUInterconnect
         private SqlDataReader GetApprovedFutureEvents()
         {
             string queryStr = "SELECT * FROM [Events] " +
-                "WHERE adminOk=1 AND hostOk=1 AND endTime>@now " +
+                "WHERE approved=1 AND endTime>@now " +
                 "ORDER BY [Events].startTime";
 
             SqlConnection con = new SqlConnection(Config.SqlConStr);

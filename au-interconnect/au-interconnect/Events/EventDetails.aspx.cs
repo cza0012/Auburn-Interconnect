@@ -20,7 +20,7 @@ namespace AUInterconnect.Events
             //Get the event ID
             string eidStr = Request[Const.EventId];
 #if DEBUG
-            if (eidStr == null) eidStr = "1";
+            if (eidStr == null) eidStr = "2";
 #endif
             int eventId = 0;
             if (eidStr == null || !int.TryParse(eidStr, out eventId))
@@ -37,40 +37,46 @@ namespace AUInterconnect.Events
 
         private bool PopulateEventInfo(int eventId)
         {
-            string queryStr = "SELECT title, startTime, endTime, location, " +
-                "descr, maxReg, maxGuest, fname, lname FROM [Events] " +
-                "INNER JOIN Users ON hostId=uid WHERE id=@id";
+            string queryStr = "SELECT eventName, startTime, endTime, location, " +
+                "descr, hostName, meetTime, meetLocation, transportation, " +
+                "costs, equipment FROM [Events] WHERE eventId=@eventId";
 
             using (SqlConnection con = new SqlConnection(Config.SqlConStr))
             {
                 SqlCommand command = new SqlCommand(queryStr, con);
-                command.Parameters.Add(new SqlParameter("id", eventId));
+                command.Parameters.Add(new SqlParameter("eventId", eventId));
                 con.Open();
                 SqlDataReader reader = command.ExecuteReader(
                     CommandBehavior.SingleRow);
+                
                 if (reader.Read())
                 {
-                    hostLit.Text = reader["fName"].ToString() + " " +
-                        reader["lname"].ToString();
-                    titleLit.Text = reader["title"].ToString();
-                    startLit.Text = ((DateTime)reader["startTime"]).ToString("f");
-                    endLit.Text = ((DateTime)reader["endTime"]).ToString("f");
-                    locLit.Text = reader["location"].ToString();
-                    descLit.Text = reader["descr"].ToString().Replace(
+                    HostName.Text = reader["hostName"].ToString();
+                    EventName.Text = reader["eventName"].ToString();
+                    BigEventTime.Text = ((DateTime)reader["startTime"]).ToString("MMM d, yyyy");
+                    StartTime.Text = ((DateTime)reader["startTime"]).ToString("MMM d, yyyy h:mm tt");
+                    EndTime.Text = ((DateTime)reader["endTime"]).ToString("MMM d, yyyy h:mm tt");
+                    Location.Text = reader["location"].ToString();
+                    Desc.Text = reader["descr"].ToString().Replace(
                         "\r\n", "<br />").Replace("\n", "<br />");
+                    MeetTime.Text = ((DateTime)reader["startTime"]).ToString("MMM d, yyyy h:mm tt");
+                    MeetLocation.Text = reader["meetLocation"].ToString();
+                    Transportation.Text = reader["transportation"].ToString();
+                    Costs.Text = reader["costs"].ToString();
+                    Equipments.Text = reader["equipment"].ToString();
                     
                     //Space
-                    if (reader["maxReg"] == DBNull.Value)
-                    {
-                        spaceLit.Text = "This event has no limit on the " +
-                            "number of participants.";
-                    }
-                    else
-                    {
-                        int maxReg = (int)reader["maxReg"];
-                        spaceLit.Text = "There are total " + maxReg +
-                            "spaces for this event.";
-                    }
+                    //if (reader["maxReg"] == DBNull.Value)
+                    //{
+                    //    spaceLit.Text = "This event has no limit on the " +
+                    //        "number of participants.";
+                    //}
+                    //else
+                    //{
+                    //    int maxReg = (int)reader["maxReg"];
+                    //    spaceLit.Text = "There are total " + maxReg +
+                    //        "spaces for this event.";
+                    //}
                     
                     return true;
                 }

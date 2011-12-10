@@ -62,11 +62,15 @@
     <Content Include="EventEntryCntrl.ascx" />
     <Content Include="Events\EventDetails.aspx" />
     <Content Include="Events\Signup.aspx" />
+    <Content Include="images\help_blue.png" />
     <Content Include="images\aubie.png" />
     <Content Include="PartEventEntry.ascx" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.15.custom.min.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
+    <Content Include="Scripts\jquery.maskedinput-1.3.min.js" />
+    <Content Include="Scripts\jquery.qtip.min.js" />
+    <Content Include="Styles\jquery.qtip.min.css" />
     <Content Include="Styles\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Styles\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Styles\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />

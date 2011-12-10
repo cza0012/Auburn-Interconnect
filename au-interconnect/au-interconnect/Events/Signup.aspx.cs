@@ -14,8 +14,13 @@ namespace AUInterconnect.Events
         protected void Page_Load(object sender, EventArgs e)
         {
 #if DEBUG
-            if (Session[Const.User] == null)
-                Session[Const.User] = new User(1, true);
+            User debUser = (User)Session[Const.User];
+            if (debUser == null)
+            {
+                debUser = new User(1, true);
+                Session[Const.User] = debUser;
+            }
+            debUser.IsAuStudent = true;
 #endif
             User user = (User)Session[Const.User];
             if (user == null || !user.IsAuStudent)
@@ -50,33 +55,51 @@ namespace AUInterconnect.Events
 
         private void PopulateForm(int eventId)
         {
-            string queryStr = "SELECT title FROM [Events] " +
-                "WHERE id=@id";
+            string queryStr = "SELECT eventName, hostOrg, hostName, startTime " +
+                " FROM [Events] WHERE eventId=@eventId";
 
             using (SqlConnection con = new SqlConnection(Config.SqlConStr))
             {
                 SqlCommand command = new SqlCommand(queryStr, con);
-                command.Parameters.Add(new SqlParameter("id", eventId));
+                command.Parameters.Add(new SqlParameter("eventId", eventId));
                 con.Open();
                 SqlDataReader reader = command.ExecuteReader(
                     CommandBehavior.SingleRow);
                 if (reader.Read())
                 {
-                    titleLit.Text = reader["title"].ToString();
+                    EventName.Text = reader["eventName"].ToString();
+                    EventHost.Text = ((reader["hostOrg"] == DBNull.Value) ?
+                        reader["hostName"].ToString() :
+                        reader["hostName"].ToString());
+                    Date.Text = ((DateTime)reader["startTime"]).ToString("MMM d, yyyy");
+                    Time.Text = ((DateTime)reader["startTime"]).ToString("h:mm tt");
+                        
                 }
             }
         }
 
         protected void regBtn_Click(object sender, EventArgs e)
         {
+            //TODO: validate head count and vehicle cap (not negative).
+            //TODO: make sure the user has not registered for this event.
+
             int eventId = RequestUtil.GetEventId(Request);
-            int addInvite = 0;
-            int.TryParse(addTxb.Text.Trim(), out addInvite);
+
+#if DEBUG
+            if (eventId == 0)
+                eventId = 1;
+#endif
+
+            int headCount = 0;
+            int vehicleCap = 0;
+            int.TryParse(HeadCount.Text.Trim(), out headCount);
+            int.TryParse(VehicleCap.Text.Trim(), out vehicleCap);
+            
             int userId = ((User)Session[Const.User]).Uid;
 
             try
             {
-                RegisterEvent(eventId, userId, addInvite);
+                RegisterEvent(eventId, userId, headCount, vehicleCap);
                 Nav.ReturnToPrevPage(this);
             }
             catch (Exception ex)
@@ -85,7 +108,8 @@ namespace AUInterconnect.Events
             }
         }
 
-        private void RegisterEvent(int eventId, int userId, int ext)
+        private void RegisterEvent(int eventId, int userId, int headCount,
+            int vehicleCap)
         {
             //Check if event is full
             if (Event.IsFull(eventId))
@@ -96,8 +120,8 @@ namespace AUInterconnect.Events
             }
 
             string queryStr = "INSERT INTO EventRegs " +
-                "(eventId, userId, extInvite) VALUES " +
-                "(@eid, @uid, @ext)";
+                "(eventId, userId, headCount, vehicleCap) VALUES " +
+                "(@eid, @uid, @headCount, @vehicleCap)";
 
             using (SqlConnection con = new SqlConnection(Config.SqlConStr))
             {
@@ -106,8 +130,10 @@ namespace AUInterconnect.Events
                     eventId));
                 command.Parameters.Add(new SqlParameter("uid",
                     userId));
-                command.Parameters.Add(new SqlParameter("ext",
-                    ext));
+                command.Parameters.Add(new SqlParameter("headCount",
+                    headCount));
+                command.Parameters.Add(new SqlParameter("vehicleCap",
+                    vehicleCap));
 
                 con.Open();
                 int r = command.ExecuteNonQuery();

@@ -19,6 +19,18 @@ namespace AUInterconnect
         {
             try
             {
+                //Input validation
+                if (!Page.IsValid)
+                    return;
+
+                //Check captcha
+                if (!CaptchaControl1.UserValidated)
+                {
+                    ErrorLbl.Text = "Challenge code value not match.";
+                    return;
+                }
+
+                //Check if user with this email already exist in the system.
                 if (UserAlreadyExist(emailTxb.Text))
                 {
                     ErrorLbl.Text = "Email already exist!";
@@ -26,14 +38,17 @@ namespace AUInterconnect
                 }
                 else
                 {
-                    AddNewUser();
-                    Session[Const.Uid] = GetUserId(emailTxb.Text.Trim());
+                    AUInterconnect.User.AddNewUser(fnTxb.Text, lnTxb.Text,
+                        emailTxb.Text, 
+                        FormatHelper.ParsePhoneNum(phoneTxb.Text), pwdTxb.Text);
                     Response.Redirect("../Default.aspx", true);
                 }
             }
             catch (Exception ex)
             {
                 ErrorLbl.Text = "Sorry! There was a system error.";
+                //ErrorLbl.Text = ex.Message;
+                //ErrorLbl.Text += ex.StackTrace;
             }
         }
 
@@ -60,51 +75,26 @@ namespace AUInterconnect
             }
         }
 
-        private void AddNewUser()
-        {
-            string queryStr = 
-                "INSERT INTO Users (fname, lname, email, phone, pwd) " +
-                "VALUES (@fname, @lname, @email, @phone, @pwd)";
-
-            using (SqlConnection con = new SqlConnection(Config.SqlConStr))
-            {
-                SqlCommand command = new SqlCommand(queryStr, con);
-                command.Parameters.Add(new SqlParameter("fname",
-                    fnTxb.Text.Trim()));
-                command.Parameters.Add(new SqlParameter("lname",
-                    lnTxb.Text.Trim()));
-                command.Parameters.Add(new SqlParameter("email",
-                    emailTxb.Text.Trim()));
-                command.Parameters.Add(new SqlParameter("phone",
-                    phoneTxb.Text.Trim()));
-                command.Parameters.Add(new SqlParameter("pwd",
-                    pwdTxb.Text));
-                
-                con.Open();
-                command.ExecuteNonQuery();
-            }
-        }
-
         /// <summary>
         /// Gets user id
         /// </summary>
         /// <param name="email">email of user</param>
         /// <returns>-1 if email does not exist</returns>
-        private int GetUserId(string email)
-        {
-            string queryStr =
-                "SELECT uid FROM Users WHERE email=@email";
+        //private int GetUserId(string email)
+        //{
+        //    string queryStr =
+        //        "SELECT uid FROM Users WHERE email=@email";
 
-            using (SqlConnection con = new SqlConnection(Config.SqlConStr))
-            {
-                SqlCommand command = new SqlCommand(queryStr, con);
-                command.Parameters.Add(new SqlParameter("email", email));
-                con.Open();
-                Object obj = command.ExecuteScalar();
-                if (obj == null)
-                    return -1;
-                return (int)obj;
-            }
-        }
+        //    using (SqlConnection con = new SqlConnection(Config.SqlConStr))
+        //    {
+        //        SqlCommand command = new SqlCommand(queryStr, con);
+        //        command.Parameters.Add(new SqlParameter("email", email));
+        //        con.Open();
+        //        Object obj = command.ExecuteScalar();
+        //        if (obj == null)
+        //            return -1;
+        //        return (int)obj;
+        //    }
+        //}
     }
 }

@@ -8,7 +8,7 @@ namespace AUInterconnect
 {
     public class Config
     {
-        public const string SqlConStrName = "dev";
+        public const string SqlConStrName = "SqlServer";
 
         /// <summary>
         /// Returns the SQL database connection string.

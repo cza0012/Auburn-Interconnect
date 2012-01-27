@@ -4,74 +4,191 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace AUInterconnect
 {
     public class User
     {
-        private int uid;
-        private bool isAuStud;
-        private string fname;
-        private string lname;
+        public int Uid { get; private set; }
+        public bool IsAuStudent { get; set; }
+        public bool IsAdmin { get; private set; }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
+        public string Phone { get; private set; }
+        public string Email { get; private set; }
 
         public User(int uid)
             : this(uid, false) { }
 
         public User(int uid, bool auStud)
         {
-            this.uid = uid;
-            this.isAuStud = auStud;
+            Uid = uid;
+            IsAuStudent = auStud;
+            Fill();
         }
 
-        public int Uid
-        { 
-            get { return uid; }
-        }
-
-        public bool IsAuStudent
+        /// <summary>
+        /// Fills this object from the database.
+        /// </summary>
+        public void Fill()
         {
-            get { return isAuStud; }
-            set { isAuStud = value; }
-        }
-
-        public bool IsAdministrator
-        {
-            get { return IsAdmin(this.uid); }
-        }
-
-        public static bool IsAdmin(int userId)
-        {
-            string queryStr = "SELECT admin FROM Users " +
+            string queryStr = "SELECT fname, lname, email, phone, admin FROM Users " +
                 "WHERE uid=@id";
             using (SqlConnection con = new SqlConnection(Config.SqlConStr))
             {
                 SqlCommand command = new SqlCommand(queryStr, con);
-                command.Parameters.Add(new SqlParameter("id", userId));
+                command.Parameters.Add(new SqlParameter("id", Uid));
                 con.Open();
-                object obj = command.ExecuteScalar();
-                return (bool)obj;
+                SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleRow);
+                reader.Read();
+                IsAdmin = (bool)reader["admin"];
+                FirstName = reader["fname"].ToString();
+                LastName = reader["lname"].ToString();
+                Email = reader["email"].ToString();
+                Phone = reader["phone"].ToString();
+                reader.Close();
             }
         }
 
-        public string FirstName
+        public static void AddNewUser(string firstName, string lastName,
+            string email, long phone, string password)
         {
-            get
+            string queryStr =
+                "INSERT INTO Users (fname, lname, email, phone, pwd) " +
+                "VALUES (@fname, @lname, @email, @phone, @pwd)";
+
+            using (SqlConnection con = new SqlConnection(Config.SqlConStr))
             {
-                if (fname == null)
-                    fname = GetFirstName(uid);
-                return fname;
+                SqlCommand command = new SqlCommand(queryStr, con);
+                command.Parameters.Add(new SqlParameter("fname",
+                    firstName.Trim()));
+                command.Parameters.Add(new SqlParameter("lname",
+                    lastName.Trim()));
+                command.Parameters.Add(new SqlParameter("email",
+                    email.Trim()));
+                command.Parameters.Add(phone == 0 ?
+                    new SqlParameter("phone", DBNull.Value) :
+                    new SqlParameter("phone", phone));
+                command.Parameters.Add(new SqlParameter("pwd",
+                    HashPassword(password)));
+
+                con.Open();
+                command.ExecuteNonQuery();
             }
         }
 
-        public string LastName
+        public static byte[] HashPassword(string pwd)
         {
-            get
+            UTF8Encoding encoder = new UTF8Encoding();
+            byte[] bytes = encoder.GetBytes(pwd.ToCharArray());
+            SHA256Managed sha = new SHA256Managed();
+            return sha.ComputeHash(bytes);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="oldPwd"></param>
+        /// <param name="newPwd"></param>
+        /// <returns>
+        /// 0 - success
+        /// 1 - old password is invalid
+        /// 2 - SQL Exception
+        /// </returns>
+        public int ChangePassword(string oldPwd, string newPwd)
+        {
+            if (!IsValidCredential(Uid, oldPwd))
+                return 1;
+
+            string queryStr = "UPDATE Users SET pwd=@pwd WHERE uid=@uid";
+
+            using (SqlConnection con = new SqlConnection(Config.SqlConStr))
             {
-                if (lname == null)
-                    lname = GetLastName(uid);
-                return lname;
+                SqlCommand command = new SqlCommand(queryStr, con);
+                command.Parameters.Add(new SqlParameter("uid", Uid));
+                command.Parameters.Add(new SqlParameter("pwd", 
+                    HashPassword(newPwd)));
+
+                try
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    return 0;
+                }
+                catch (Exception)
+                {
+                    return 2;
+                }
             }
         }
+
+        public static bool IsValidCredential(int userId, string pwd)
+        {
+            string queryStr = "SELECT COUNT(*) FROM Users WHERE uid=@uid AND pwd=@pwd";
+            using (SqlConnection con = new SqlConnection(Config.SqlConStr))
+            {
+                SqlCommand command = new SqlCommand(queryStr, con);
+                command.Parameters.Add(new SqlParameter("uid", userId));
+                command.Parameters.Add(new SqlParameter("pwd",
+                    HashPassword(pwd)));
+                con.Open();
+                int count = (int)command.ExecuteScalar();
+                return count == 1;
+            }
+        }
+
+        /// <summary>
+        /// Updates a user in the database.
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="email"></param>
+        /// <param name="phone"></param>
+        /// <returns>0 successul; -1 otherwise</returns>
+        public int Update(string firstName, string lastName, string email, long phone)
+        {
+            string queryStr =
+                "UPDATE Users SET fname=@fname, lname=@lname, email=@email, phone=@phone " +
+                "WHERE uid=@uid";
+            using (SqlConnection con = new SqlConnection(Config.SqlConStr))
+            {
+                SqlCommand command = new SqlCommand(queryStr, con);
+                command.Parameters.Add(new SqlParameter("fname", firstName));
+                command.Parameters.Add(new SqlParameter("lname", lastName));
+                command.Parameters.Add(new SqlParameter("email", email));
+                command.Parameters.Add(phone == 0 ?
+                    new SqlParameter("phone", DBNull.Value) :
+                    new SqlParameter("phone", phone));
+                command.Parameters.Add(new SqlParameter("uid", Uid));
+
+                try
+                {
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    return 0;
+                }
+                catch (Exception)
+                {
+                    return -1;
+                }
+            }
+        }
+
+        //public static bool IsAdmin(int userId)
+        //{
+        //    string queryStr = "SELECT admin FROM Users " +
+        //        "WHERE uid=@id";
+        //    using (SqlConnection con = new SqlConnection(Config.SqlConStr))
+        //    {
+        //        SqlCommand command = new SqlCommand(queryStr, con);
+        //        command.Parameters.Add(new SqlParameter("id", userId));
+        //        con.Open();
+        //        object obj = command.ExecuteScalar();
+        //        return (bool)obj;
+        //    }
+        //}
 
         /// <summary>
         /// Gets the first name of a user from the database.

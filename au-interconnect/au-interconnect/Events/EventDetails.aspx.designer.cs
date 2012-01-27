@@ -22,15 +22,6 @@ namespace AUInterconnect.Events {
         protected global::System.Web.UI.WebControls.Literal EventName;
         
         /// <summary>
-        /// HostName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal HostName;
-        
-        /// <summary>
         /// BigEventTime control.
         /// </summary>
         /// <remarks>
@@ -65,6 +56,24 @@ namespace AUInterconnect.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal Desc;
+        
+        /// <summary>
+        /// HostName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal HostName;
+        
+        /// <summary>
+        /// EventCap control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal EventCap;
         
         /// <summary>
         /// Location control.

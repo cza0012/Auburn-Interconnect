@@ -17,20 +17,25 @@ namespace AUInterconnect
         {
             //RegisterHyperLink.NavigateUrl = "Register.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
 
-            //If user already logged in, return to previous page
-            User user = (User)Session[Const.User];
-            if (user != null)
+            try
             {
-                if (!AuthenticateAuStudent || user.IsAuStudent)
-                    Nav.ReturnToPrevPage(this);
+                //If user already logged in, return to previous page
+                User user = (User)Session[Const.User];
+                if (user != null && !AuthenticateAuStudent ||
+                    user != null && AuthenticateAuStudent && user.IsAuStudent)
+                {
+                    if (!AuthenticateAuStudent || user.IsAuStudent)
+                        Nav.ReturnToPrevPage(this);
+                }
+
+                //Configure UI
+                if (!AuthenticateSysUser)
+                    Panel1.Visible = false;
+                if (!AuthenticateAuStudent)
+                    Panel2.Visible = false;
+
             }
-
-            //Configure UI
-            if (!AuthenticateSysUser)
-                Panel1.Visible = false;
-            if (!AuthenticateAuStudent)
-                Panel2.Visible = false;
-
+            catch (Exception) { }
         }
 
         protected void LoginButton_Click(object sender, EventArgs e)
@@ -129,12 +134,9 @@ namespace AUInterconnect
             catch (Exception ex)
             {
                 FailureText.Text = "Sorry! There was a system error!";
+                FailureText.Text += ex.Message;
+                FailureText.Text += ex.StackTrace;
             }
-        }
-
-        protected void regBtn_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("UserReg.aspx", true);
         }
 
         /// <summary>
@@ -154,7 +156,8 @@ namespace AUInterconnect
             {
                 SqlCommand command = new SqlCommand(queryStr, con);
                 command.Parameters.Add(new SqlParameter("email", email));
-                command.Parameters.Add(new SqlParameter("pwd", pwd));
+                command.Parameters.Add(new SqlParameter("pwd", 
+                    AUInterconnect.User.HashPassword(pwd)));
                 con.Open();
                 Object obj = command.ExecuteScalar();
                 if (obj == null)

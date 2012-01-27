@@ -1,10 +1,25 @@
-﻿<%@ Page Title="Sign Up" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
+﻿<%@ Page Title="Sign Up" Language="C#" MasterPageFile="~/AULayout1.master" AutoEventWireup="true"
     CodeBehind="Reg.aspx.cs" Inherits="AUInterconnect.Reg" %>
+<%@ Register TagPrefix="cc1" Namespace="WebControlCaptcha" Assembly="WebControlCaptcha" %>
+
+<asp:Content ID="Title" runat="server" ContentPlaceHolderID="title">
+Auburn Interconnect - User Registration
+</asp:Content>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+    <script type="text/javascript" src="../Scripts/jquery.maskedinput-1.3.min.js"></script>
+
+<script language="javascript" type="text/javascript">
+    $(function () {
+        $('#<%= phoneTxb.ClientID %>').mask("(999) 999-9999");
+    });
+</script>
 </asp:Content>
+
+<asp:Content ID="Breadcrumb" runat="server" ContentPlaceHolderID="breadcrumb"></asp:Content>
+
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <h2>Sign Up</h2>
+    <h1>Sign Up</h1>
     <p>We just need a few pieces of information from you to add you as a
     new user.</p>
     <p>
@@ -33,11 +48,7 @@
         <td>Phone</td>
         <td>
             <asp:TextBox ID="phoneTxb" runat="server" Width="200px"></asp:TextBox></td>
-        <td>
-            <asp:RegularExpressionValidator ID="PhoneRegexVal" runat="server" 
-                ErrorMessage="Phone is invalid" ControlToValidate="phoneTxb" Display="Dynamic" 
-                ValidationExpression="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}"></asp:RegularExpressionValidator>
-        </td>
+        <td></td>
     </tr>
     <tr>
         <td>Email*</td>
@@ -71,6 +82,12 @@
                 ErrorMessage="Password is required" ControlToValidate="pwdTxb" 
                 Display="Dynamic"></asp:RequiredFieldValidator>
         </td>
+    </tr>
+    <tr>
+    <td colspan="2">
+        <cc1:captchacontrol id="CaptchaControl1" runat="server" 
+            LayoutStyle="Vertical" CaptchaBackgroundNoise="High" ></cc1:captchacontrol></td>
+    <td></td>
     </tr>
     <tr>
         <td></td>

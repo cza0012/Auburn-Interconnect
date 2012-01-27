@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<%@ Master Language="C#"  AutoEventWireup="true" CodeBehind="AULayout1.Master.cs" Inherits="AUInterconnect.AULayout1Master" %>
+<%@ Register TagPrefix="uc" TagName="UserIdentity" Src="~/UserControls/UserIdentity.ascx" %>
+<%@ Import Namespace="AUInterconnect" %>
+
+<script runat="server">
+    private string GetLogoPath()
+    {
+        if (Request.ApplicationPath.EndsWith("/"))
+            return Request.ApplicationPath;
+        return Request.ApplicationPath + "/";
+    }
+
+    private bool IsHost()
+    {
+        if (Session[Const.User] == null)
+            return false;
+        
+        User user = (User)Session[Const.User];
+        try
+        {
+            return Event.UserProposedEvent(user.Uid);
+        }
+        catch (Exception)
+        {
+            return false;
+        }  
+    }
+
+    private string AppPath
+    {
+        get
+        {
+            if (Request.ApplicationPath.EndsWith("/"))
+                return Request.ApplicationPath;
+            return Request.ApplicationPath + "/";
+        }
+    }
+</script>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+<asp:ContentPlaceHolder id="title" runat="server">Layout 1 - Auburn University</asp:ContentPlaceHolder>
+</title>
+
+<link rel="stylesheet" href="<%=AppPath + "styles/AuTemplate/default.css"%>" type="text/css" />
+<link rel="stylesheet" href="<%=AppPath + "styles/AuTemplate/mainSidebar.css"%>" type="text/css" />
+<link rel="stylesheet" href="<%=AppPath + "styles/AuTemplate/sidebar.css"%>" media="screen" type="text/css" />
+<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="<%=AppPath + "styles/AuTemplate/mobile.css"%>" />
+<link rel="stylesheet" href="<%=AppPath + "styles/AuTemplate/print.css"%>" media="print" type="text/css" />
+
+<link rel="shortcut icon" href="https://fp.auburn.edu/template/images/favicon.ico" />
+<!-- script type="text/javascript" src="https://fp.auburn.edu/template/js/jquery-1.4.2.min.js"></script -->
+<script type="text/javascript" src="<%=AppPath + "Scripts/jquery-1.5.1.min.js"%>"></script>
+<!-- qtip 2 -->
+<link rel="Stylesheet" type="text/css" href="<%=AppPath +"Styles/jquery.qtip.min.css"%>" />
+<script type="text/javascript" src="<%=AppPath + "Scripts/jquery.qtip.min.js"%>"></script>
+
+<script language="javascript" type="text/javascript">
+    $(function () {
+
+        //qtip
+        $('#<%= useridentity.ClientID %>').qtip(
+        {
+            id: 'usermenu',
+            content: { text: $('#usermenu') },
+            position: { my: 'top  center', at: 'bottom  center' },
+            show: {
+                event: 'click', // Show it on click...
+                solo: true // ...and hide all other tooltips...
+            },
+            hide: 'unfocus',
+            style: {
+                classes: 'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded'
+            }
+        });
+    });
+</script>
+
+<style type="text/css">
+
+</style>
+
+<!--[if lt IE 7]>
+<link rel="stylesheet" type="text/css" href="/template/styles/ie.css" />
+<![endif]-->
+<asp:ContentPlaceHolder id="HeadContent" runat="server">
+
+</asp:ContentPlaceHolder>
+
+</head>
+<body>
+<form id="form1" runat="server">
+<div id="pageWrap"> 
+  <div id="headerWrap">
+    <div id="header">
+      <div id="logo">
+      	<a href="https://fp.auburn.edu/interconnect"><img src="<%=GetLogoPath() %>images/headerLogo.png" alt="Auburn University Homepage" /></a>
+      </div>
+      <div id="headerTitle">
+        <div class="topLinks">
+            <a href="http://www.auburn.edu">Auburn University</a> |
+          <a href="http://www.auburn.edu/main/sitemap.php">A-Z Index</a> | 
+          <a href="http://www.auburn.edu/map">Map</a> | 
+          <a href="http://www.auburn.edu/main/auweb_campus_directory.html" class="lastTopLink">People Finder</a>
+        </div>
+        <div class="titleArea">
+        	<div style="border: none; height:40px; font-size: small; font-weight: bold;">
+            <asp:HyperLink ID="LoginLink" runat="server" EnableViewState="False" 
+                ForeColor="White" NavigateUrl="~/User/Login.aspx">Log In</asp:HyperLink>
+            
+            <div id="useridentity" runat="server">
+            <asp:Label ID="UserNameLabel" runat="server" Text="Label">Guest</asp:Label>
+            <asp:Image ID="Image1" runat="server" ImageUrl="~/images/dropdown.png" />
+            <table id="usermenu" style="display:none">
+            <tr><td><a href="<%= AppPath %>User/UserRegisteredEvents.aspx">My Events</a></td></tr>
+            <%if (IsHost()){ %>
+            <tr><td><a href="<%= AppPath %>Host/HostActiveEvents.aspx">My Proposed Events</a></td></tr>
+            <%} %>
+            <tr><td><a href="<%= AppPath %>User/UserAccountInfo.aspx">Account</a></td></tr>
+            <tr><td><a href="<%= AppPath %>User/Logout.aspx">Log Out</a></td></tr>
+            </table>
+            </div>
+
+            </div>
+        </div>
+      </div>
+    </div>
+		<table class="nav">
+      <tr>
+        <td><asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Default.aspx">Home</asp:HyperLink></td>
+        <td><asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Events/UpcomingEvents.aspx">Upcoming Events</asp:HyperLink></td>
+        <td><asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Events/Create.aspx">Propose An Event</asp:HyperLink></td>
+        <td><asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="~/Events/PastEvents.aspx">Past Events</asp:HyperLink></td>
+        <td><asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/Volunteers.aspx">Community Volunteers</asp:HyperLink></td>
+      </tr>
+    </table>
+  </div>
+  <div id="contentArea">
+    <div class="contentDivision"> 
+		<p class="breadcrumb"> 
+			<asp:ContentPlaceHolder id="breadcrumb" runat="server">
+				<a href="index.html">Official Template Website</a> &gt; Layout 1
+			</asp:ContentPlaceHolder>
+  	</p>
+		<asp:ContentPlaceHolder id="MainContent" runat="server">
+		
+	  </asp:ContentPlaceHolder>
+    </div>
+    <div class="sidebar"> 
+    <asp:ContentPlaceHolder id="sidebar" runat="server">
+    </asp:ContentPlaceHolder>
+    </div>
+  </div>
+
+  <div id="contentArea_bottom"></div>
+  <div id="footerWrap">
+    <div id="footer">
+    <div id="footSectionWrap">
+    <!--
+      <div class="footSection">
+        <ul>
+          <li><a href="http://www.grad.auburn.edu/">Auburn Graduate School</a></li>
+          <li><a href="http://www.auburn.edu">Auburn University</a></li>
+          <li><a href="http://www.auburn.edu/main/currentstudents.html">Auburn Current Student</a></li>
+        </ul>
+      </div>
+      <div class="footSection"> 
+        <ul>
+          <li><a href="#">Footer Link 4</a></li>
+          <li><a href="#">Footer Link 5</a></li>
+          <li><a href="#">Footer Link 6</a></li>
+        </ul>
+      </div>
+      <div class="footSection noBorder">
+        <ul>
+          <li><a href="#">Footer Link 7</a></li>
+          <li><a href="#">Footer Link 8</a></li>
+          <li><a href="#">Footer Link 9</a></li>
+        </ul>
+      </div>
+      -->
+    </div>
+    </div>  
+    <div id="subfooter">
+      Auburn University | Auburn, Alabama 36849 | (334) 844-4000  | <script type="text/javascript">                                                                        emailE = 'auburn.edu'; emailE = ('vininl' + '@' + emailE); document.write("<a href='mailto:" + emailE + "'>" + emailE + "</a>");</script>
+      <br />
+      <a href="https://fp.auburn.edu/ocm/auweb_survey">Website Feedback</a> | <a href="http://www.auburn.edu/privacy">Privacy</a> | <a href="http://www.auburn.edu/oit/it_policies/copyright_regulations.php">Copyright &copy; 
+      <script type="text/javascript">date = new Date(); document.write(date.getFullYear());</script></a>
+        <p style="font-size:inherit">Updated: <asp:ContentPlaceHolder id="lastUpdated" runat="server"></asp:ContentPlaceHolder></p>
+    </div>
+  </div>
+</div>
+</form>
+</body>
+</html>

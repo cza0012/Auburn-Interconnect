@@ -8,6 +8,8 @@ namespace AUInterconnect
 {
     public class Event
     {
+        public const int EventCapacityUnlimited = -2;
+
         /// <summary>
         /// Checks if an event is full.
         /// </summary>
@@ -32,8 +34,10 @@ namespace AUInterconnect
         /// Gets the maximum number of registrations for an event.
         /// </summary>
         /// <param name="eventId">The id of the event</param>
-        /// <returns>-1 if event is not found; -2 if maxreg is null;
-        /// maxRegs otherwise</returns>
+        /// <returns>
+        /// -1 if event is not found;
+        /// -2 if maxreg is null (EventCapacityUnlimited);
+        /// event capacity otherwise</returns>
         /// <exception cref="SqlException"></exception>
         public static int GetGuestLimit(int eventId)
         {
@@ -48,7 +52,7 @@ namespace AUInterconnect
                 con.Open();
                 object obj = command.ExecuteScalar();
                 if (obj == null || obj == DBNull.Value)
-                    return -2;
+                    return EventCapacityUnlimited;
                 return (int)obj;
             }
         }
@@ -113,6 +117,28 @@ namespace AUInterconnect
                 con.Open();
                 object obj = command.ExecuteScalar();
                 return ((int)obj > 0);
+            }
+        }
+
+        /// <summary>
+        /// Check if a user has created an event. This is a rough check of
+        /// if the user is a host.
+        /// </summary>
+        /// <param name="userId">User ID</param>
+        /// <returns>
+        /// true if user created an event; false otherwise.
+        /// </returns>
+        public static bool UserProposedEvent(int userId)
+        {
+            string queryStr = "SELECT COUNT(*) FROM [Events] " +
+                "WHERE creatorId=@userId";
+            using (SqlConnection con = new SqlConnection(Config.SqlConStr))
+            {
+                SqlCommand command = new SqlCommand(queryStr, con);
+                command.Parameters.Add(new SqlParameter("userId", userId));
+                con.Open();
+                object obj = command.ExecuteScalar();
+                return ((int)obj >= 1);
             }
         }
     }

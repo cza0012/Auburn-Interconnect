@@ -22,7 +22,7 @@ namespace AUInterconnect.admin
                 Nav.Login(this, false);
 
             //Check if user is Admin
-            if (!user.IsAdministrator)
+            if (!user.IsAdmin)
                 Nav.GoHome(this);
 
             // load events table

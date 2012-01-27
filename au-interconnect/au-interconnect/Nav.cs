@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Threading;
 
 namespace AUInterconnect
 {
@@ -17,12 +18,18 @@ namespace AUInterconnect
         public static void ReturnToPrevPage(Page thisPage)
         {
             if (thisPage == null)
-                throw new ArgumentNullException();
+                //throw new ArgumentNullException();
+                return;
 
-            string returnUrl = thisPage.Request["ReturnUrl"];
-            if (returnUrl == null)
-                returnUrl = "~/Default.aspx";
-            thisPage.Response.Redirect(returnUrl, true);
+            try
+            {
+                string returnUrl = thisPage.Request["ReturnUrl"];
+                if (returnUrl == null)
+                    returnUrl = "~/Default.aspx";
+                thisPage.Response.Redirect(returnUrl, true);
+            }
+            catch (ThreadAbortException) { }
+            catch (Exception) { }
         }
 
         /// <summary>
@@ -33,19 +40,27 @@ namespace AUInterconnect
         /// page.</param>
         public static void Login(Page page, bool checkStudent)
         {
-            string returnUrl = HttpUtility.UrlEncode(
-                page.Request.Url.ToString());
-            string queryStr = "?ReturnUrl=" + returnUrl;
-            if (checkStudent)
-                queryStr += "&" + AUInterconnect.Login.AuthAuStud + "=1";
-            string url = "~/User/Login.aspx" + queryStr;
-            page.Response.Redirect(url, true);
-            
+            try
+            {
+                string returnUrl = HttpUtility.UrlEncode(
+                    page.Request.Url.ToString());
+                string queryStr = "?ReturnUrl=" + returnUrl;
+                if (checkStudent)
+                    queryStr += "&" + AUInterconnect.Login.AuthAuStud + "=1";
+                string url = "~/User/Login.aspx" + queryStr;
+                page.Response.Redirect(url, true);
+            }
+            catch (ThreadAbortException) { }
+            catch (Exception) { }
         }
 
         public static void GoHome(Page page)
         {
-            page.Response.Redirect("~/Default.aspx", true);
+            try
+            {
+                page.Response.Redirect("~/Default.aspx", true);
+            }
+            catch (ThreadAbortException) { }
         }
     }
 }

@@ -1,9 +1,14 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AULayout1.master" AutoEventWireup="true"
     CodeBehind="Create.aspx.cs" Inherits="AUInterconnect.Events.Create" %>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="title" runat="server">
+Auburn Interconnect - Propose an Event
+</asp:Content>
+
+<asp:Content ID="BreadcrumbContent" runat="server" ContentPlaceHolderID="breadcrumb"></asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 <link rel="Stylesheet" type="text/css" href="../Styles/smoothness/jquery-ui-1.8.15.custom.css" />
-<link rel="Stylesheet" type="text/css" href="../Styles/jquery.qtip.min.css" />
 <style type="text/css">
 /* css for timepicker */
 .ui-timepicker-div .ui-widget-header{ margin-bottom: 8px; }
@@ -12,10 +17,21 @@
 .ui-timepicker-div dl dd{ margin: -25px 0 10px 65px; }
 .ui-timepicker-div td { font-size: 90%; }
 </style>
+
+<style tyle="text/css">
+td
+{
+    vertical-align:middle;
+}
+</style>
+
 <script type="text/javascript" src="../Scripts/jquery-1.5.1.min.js"></script>
 <script type="text/javascript" src="../Scripts/jquery-ui-1.8.15.custom.min.js"></script>
 <script type="text/javascript" src="../Scripts/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript" src="../Scripts/jquery.maskedinput-1.3.min.js"></script>
+
+<!-- qtip 2 -->
+<link rel="Stylesheet" type="text/css" href="../Styles/jquery.qtip.min.css" />
 <script type="text/javascript" src="../Scripts/jquery.qtip.min.js"></script>
 
 <script language="javascript" type="text/javascript">
@@ -61,8 +77,7 @@
 </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Create Event</h2>
+    <h1>Propose an Event</h1>
         <br />
         <div class="catHeaderBox">
         <strong>Host Info</strong></div>
@@ -81,14 +96,15 @@
                 </tr>
             <tr>
                     <td><span class="fieldName"
-                            alt="Description">Contact Name</span>
+                            alt="Provide your name even if you are representing an organization.">Contact Name</span>
                         </td>
                     <td>
                         <asp:TextBox ID="HostName" runat="server" Width="300px" MaxLength="300"></asp:TextBox>
                     </td>
                     <td>
                         <asp:RequiredFieldValidator ID="hostNameReq" runat="server" 
-                        ErrorMessage="Host name is required" ControlToValidate="HostName"></asp:RequiredFieldValidator>
+                        ErrorMessage="Host name is required" ControlToValidate="HostName" 
+                            Display="Dynamic"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -100,7 +116,8 @@
                     <td>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" 
                             ControlToValidate="HostEmail" ErrorMessage="Host email is invalid" 
-                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
+                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" 
+                            Display="Dynamic"></asp:RegularExpressionValidator>
                         <asp:RequiredFieldValidator ID="HostEmailReq" runat="server" 
                             ControlToValidate="HostEmail" Display="Dynamic" 
                             ErrorMessage="Host email is required"></asp:RequiredFieldValidator>
@@ -114,7 +131,8 @@
                     </td>
                     <td>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
-                        ErrorMessage="Host phone is required" ControlToValidate="HostPhone"></asp:RequiredFieldValidator>
+                        ErrorMessage="Host phone is required" ControlToValidate="HostPhone" 
+                            Display="Dynamic"></asp:RequiredFieldValidator>
                     </td>
                  </tr></table>
         <br />
@@ -123,13 +141,15 @@
             <table border="0" cellspacing="5" class="catFieldBox">
                 <tr>
                     <td style="width:100px"><span class="fieldName"
-                            alt="Description">Event Name</span></td>
+                            alt="Carefully select 2-4 words that identify the main idea. 
+                            Details should be reserved for the description section that follows.">Event Name</span></td>
                     <td>
                         <asp:TextBox ID="EventName" runat="server" Width="300px" MaxLength="255"></asp:TextBox>
                     </td>
                     <td>
                         <asp:RequiredFieldValidator ID="EventNameReq" runat="server" 
-                        ErrorMessage="Give this event a name" ControlToValidate="EventName"></asp:RequiredFieldValidator>
+                        ErrorMessage="Give this event a name" ControlToValidate="EventName" 
+                            Display="Dynamic"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -145,47 +165,55 @@
                  </tr>
                  <tr>
                     <td><span class="fieldName"
-                            alt="Description">Location</span></td>
+                            alt="Where the event actually occurs, not the place where
+                            people meet for transport.">Location</span></td>
                     <td>
                         <asp:TextBox ID="Location" runat="server" Width="300px"></asp:TextBox>
                     </td>
                     <td>
                         <asp:RequiredFieldValidator ID="LocationReq" runat="server" 
-                        ErrorMessage="Give this event a name" ControlToValidate="Location"></asp:RequiredFieldValidator>
+                        ErrorMessage="Give this event a name" ControlToValidate="Location" 
+                            Display="Dynamic"></asp:RequiredFieldValidator>
                     </td>
                  </tr>
                  <tr>
                     <td><span class="fieldName"
-                            alt="Description">Meeting Time</span></td>
+                            alt="The time when people need to meet in order to arrange
+                            travel to the event location.">Meeting Time</span></td>
                     <td>
                         <asp:TextBox ID="MeetTime" runat="server" Width="140px"></asp:TextBox>
                     </td>
                     <td>
                         <asp:RequiredFieldValidator ID="MeetTimeReq" runat="server" 
-                        ErrorMessage="Meeting time is required" ControlToValidate="MeetTime"></asp:RequiredFieldValidator>
+                        ErrorMessage="Meeting time is required" ControlToValidate="MeetTime" 
+                            Display="Dynamic"></asp:RequiredFieldValidator>
                     </td>
                  </tr>
                  <tr>
                     <td><span class="fieldName"
-                            alt="Description">Meeting Location</span></td>
+                            alt="Location where people meet to arrange travel or other logistical items.">
+                            Meeting Location</span></td>
                     <td>
                         <asp:TextBox ID="MeetLocation" runat="server" Width="300px"></asp:TextBox>
                     </td>
                     <td>
                         <asp:RequiredFieldValidator ID="MeetLocReq" runat="server" 
-                        ErrorMessage="Meet Location is required" ControlToValidate="MeetLocation"></asp:RequiredFieldValidator>
+                        ErrorMessage="Meet Location is required" ControlToValidate="MeetLocation" 
+                            Display="Dynamic"></asp:RequiredFieldValidator>
                     </td>
                  </tr>
                  <tr>
-            <td><span class="fieldName"
-                            alt="Description">Description</span></td>
+            <td  style="vertical-align:middle"><span class="fieldName"
+                            alt="Anything relevent to the participants of the event such as activities and
+                            schedule.">Description</span></td>
             <td>
                 <asp:TextBox ID="Desc" runat="server" TextMode="MultiLine" Height="95px" 
                     Width="300px"></asp:TextBox>                
             </td>
             <td>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
-                    ErrorMessage="Give this event more info" ControlToValidate="Desc"></asp:RequiredFieldValidator>
+                    ErrorMessage="Give this event more info" ControlToValidate="Desc" 
+                    Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
         </tr>
                  </table>       
@@ -196,20 +224,25 @@
             
 <table border="0" cellspacing="5" class="catFieldBox">
                  <tr>
-                    <td style="width:100px"><span class="fieldName"
-                            alt="Description">Transportation</span></td>
+                    <td style="width:100px; vertical-align:middle"><span class="fieldName"
+                            alt="Form of transportation. Let participants know whether
+                            the host will provide it…or if participants must provide
+                            their own. Also, specify here whether other students will
+                            be providing transportation.">Transportation</span></td>
                     <td>
                 <asp:TextBox ID="Transport" runat="server" TextMode="MultiLine" Height="95px" 
-                    Width="300px"></asp:TextBox>                
+                    Width="300px" MaxLength="255"></asp:TextBox>                
                     </td>
                     <td>
                         <asp:RequiredFieldValidator ID="TransportReq" runat="server" 
-                        ErrorMessage="Transportation info is required" ControlToValidate="Transport"></asp:RequiredFieldValidator>
+                        ErrorMessage="Transportation info is required" ControlToValidate="Transport" 
+                            Display="Dynamic"></asp:RequiredFieldValidator>
                     </td>
                  </tr>
                  <tr>
                     <td style="width:100px"><span class="fieldName"
-                            alt="Description">Request Drivers</span></td>
+                            alt="Please check here if you'd like to ask participants to
+                            provide transportation for other participants.">Request Drivers</span></td>
                     <td>
                         <asp:CheckBox ID="RequestDrivers" runat="server" />
                     </td>
@@ -217,47 +250,55 @@
                         &nbsp;</td>
                  </tr>
                  <tr>
-                    <td><span class="fieldName"
-                            alt="Description">Costs</span></td>
+                    <td style="vertical-align:middle"><span class="fieldName"
+                            alt="Describe the cost per student (e.g., entrance fees,
+                            equipment rental or gas). You will need a simple plan to
+                            manage collection of this fee.">Costs</span></td>
                     <td>
                 <asp:TextBox ID="Costs" runat="server" TextMode="MultiLine" Height="95px" 
-                    Width="300px"></asp:TextBox>                
+                    Width="300px" MaxLength="255"></asp:TextBox>                
                     </td>
                     <td>
                     </td>
                  </tr>
                  <tr>
                     <td><span class="fieldName"
-                            alt="Description">Equipment</span></td>
+                            alt="Specify clearly any necessary equipment that may be needed.">Equipment</span></td>
                     <td>
                 <asp:TextBox ID="Equipment" runat="server" TextMode="MultiLine" Height="95px" 
-                    Width="300px"></asp:TextBox>                
+                    Width="300px" MaxLength="255"></asp:TextBox>                
                     </td>
                     <td>
                     </td>
                  </tr>
                  <tr>
             <td><span class="fieldName"
-                            alt="Description">Food</span></td>
+                            alt="If your event span a normal meal time you must specify
+                            who is responsible for it. If you (host) plan to provide it,
+                            specify what it will be so that people can decide whether or
+                            not to bring their own. Remember, some people have dietary
+                            restrictions.">Food</span></td>
             <td>
                 <asp:TextBox ID="Food" runat="server" TextMode="MultiLine" Height="95px" 
-                    Width="300px"></asp:TextBox>                
+                    Width="300px" MaxLength="255"></asp:TextBox>                
             </td>
             <td>
                 &nbsp;</td>
         </tr>
                  <tr>
             <td><span class="fieldName"
-                            alt="Description">Other</span></td>
+                            alt="Include notes on anything important that was not
+                            previously identified.">Other</span></td>
             <td>
                 <asp:TextBox ID="Other" runat="server" TextMode="MultiLine" Height="95px" 
-                    Width="300px"></asp:TextBox>                
+                    Width="300px" MaxLength="255"></asp:TextBox>                
             </td>
             <td>
                 &nbsp;</td>
         </tr>
                  <tr>
-            <td>Guest Limit</td>
+            <td><span class="fieldName" alt="The maximum number people who can register
+            for this event. If blank, there is no limit.">Event Capacity</span></td>
             <td>
                 <asp:TextBox ID="GuestLimit" runat="server" 
                     Width="59px"></asp:TextBox>                
@@ -276,8 +317,8 @@
         <tr>
             <td style="width:100px"></td>
             <td>
-                <asp:CheckBox ID="agreeChk" runat="server" EnableViewState="False" /> I agree to
-                the conditions of hosting a community event
+                <asp:CheckBox ID="agreeChk" runat="server" EnableViewState="False" />&nbsp;I agree to
+                the <a href="EventHostAgreement.htm" target="_blank">conditions</a> of hosting a community event
                  
             </td>
             <td></td>

@@ -13,18 +13,7 @@ namespace AUInterconnect.Events
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Check if user is logged in
-#if DEBUG
-            if(Session[Const.User] == null)
-                Session[Const.User] = new User(1, true);
-#endif
-            if (Session[Const.User] == null)
-            {
-                string returnUrl = HttpUtility.UrlEncode(
-                    Request.Url.ToString());
-                string url = "~/User/Login.aspx?ReturnUrl=" + returnUrl;
-                Response.Redirect(url, true);
-            }
+            PageHelper.Login(this, false);
         }
 
         protected void createBtn_Click(object sender, EventArgs e)
@@ -34,18 +23,17 @@ namespace AUInterconnect.Events
                 if (ValidateInput())
                 {
                     decimal eventId = CreateEvent();
-                    Nav.ReturnToPrevPage(this);
+                    Response.Redirect("CreateComplete.aspx");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
             }
         }
 
         private bool ValidateInput()
         {
-            return ValidateEventTimes()
+            return Page.IsValid && ValidateEventTimes()
                 && ValidateAgreeCondition();
         }
 
@@ -131,7 +119,7 @@ namespace AUInterconnect.Events
                 command.Parameters.Add(new SqlParameter("hostEmail",
                     HostEmail.Text.Trim()));
                 command.Parameters.Add(new SqlParameter("hostPhone",
-                    ParsePhoneNum(HostPhone.Text)));
+                    FormatHelper.ParsePhoneNum(HostPhone.Text)));
                 command.Parameters.Add(new SqlParameter("eventName",
                     EventName.Text.Trim()));
                 command.Parameters.Add(new SqlParameter("startTime",
@@ -193,15 +181,6 @@ namespace AUInterconnect.Events
                 object o = command.ExecuteScalar();
                 return (decimal)o;
             }
-        }
-
-        public static long ParsePhoneNum(string str)
-        {
-            StringBuilder result = new StringBuilder(str.Length);
-            foreach (char c in str)
-                if (char.IsDigit(c))
-                    result.Append(c);
-            return long.Parse(result.ToString());
         }
     }
 }

@@ -1,10 +1,17 @@
-﻿<%@ Page Title="Log In" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
+﻿<%@ Page Title="Log In" Language="C#" MasterPageFile="~/AULayout1.master" AutoEventWireup="true"
     CodeBehind="Login.aspx.cs" Inherits="AUInterconnect.Login" %>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="title" runat="server">
+Auburn Interconnect - Log In
+</asp:Content>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
+
+<asp:Content ID="Breadcrumb" runat="server" ContentPlaceHolderID="breadcrumb"></asp:Content>
+
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <h2>Log In</h2>
+    <h1>Log In</h1>
     
     <asp:Panel ID="Panel1" runat="server">
     
@@ -52,5 +59,5 @@
     <asp:Button ID="LoginButton" runat="server" CommandName="Login" 
     Text="Log In" onclick="LoginButton_Click" />
     &nbsp;&nbsp;&nbsp;
-    <a href="Reg.aspx">Register</a>
+    <a href="Reg.aspx">Register</a> | <a href="PwdResetRequest.aspx">Forgot Password</a>
 </asp:Content>

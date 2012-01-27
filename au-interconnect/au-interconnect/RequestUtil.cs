@@ -16,8 +16,8 @@ namespace AUInterconnect
             int eid = -1;
             int.TryParse(request[Const.EventId], out eid);
 #if DEBUG
-            if(eid == -1)
-                eid = 1;
+            if(eid == -1 || eid == 0)
+                eid = DevConf.DebugEventId;
 #endif
             return eid;
         }

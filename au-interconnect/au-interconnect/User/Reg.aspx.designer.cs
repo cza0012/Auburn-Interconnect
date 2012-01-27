@@ -58,15 +58,6 @@ namespace AUInterconnect {
         protected global::System.Web.UI.WebControls.TextBox phoneTxb;
         
         /// <summary>
-        /// PhoneRegexVal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator PhoneRegexVal;
-        
-        /// <summary>
         /// emailTxb control.
         /// </summary>
         /// <remarks>
@@ -128,6 +119,15 @@ namespace AUInterconnect {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator PwdReqFldVal;
+        
+        /// <summary>
+        /// CaptchaControl1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WebControlCaptcha.CaptchaControl CaptchaControl1;
         
         /// <summary>
         /// ErrorLbl control.

@@ -33,15 +33,17 @@ namespace AUInterconnect.Events
 
         private bool ValidateInput()
         {
-            return Page.IsValid && ValidateEventTimes()
-                && ValidateAgreeCondition();
+            return Page.IsValid &&
+                ValidateEventTimes() &&
+                ValidateInput_RegDeadline() &&
+                ValidateAgreeCondition();
         }
 
         private bool ValidateEventTimes()
         {
             //Check that start and end time are present
-            if (string.IsNullOrEmpty(StartTime.Text) ||
-                string.IsNullOrEmpty(EndTime.Text))
+            if (string.IsNullOrEmpty(StartTimeCtr.Text) ||
+                string.IsNullOrEmpty(EndTimeCtr.Text))
             {
                 msgLbl.Text = "Start Time and End Time are required";
                 return false;
@@ -49,13 +51,13 @@ namespace AUInterconnect.Events
 
             DateTime startTime;
             DateTime endTime;
-            if (!DateTime.TryParse(StartTime.Text, out startTime))
+            if (!DateTime.TryParse(StartTimeCtr.Text, out startTime))
             {
                 msgLbl.Text = "Start Time is invalid";
                 return false;
             }
 
-            if (!DateTime.TryParse(EndTime.Text, out endTime))
+            if (!DateTime.TryParse(EndTimeCtr.Text, out endTime))
             {
                 msgLbl.Text = "End Time is invalid";
                 return false;
@@ -71,6 +73,50 @@ namespace AUInterconnect.Events
             return true;
         }
 
+        /// <summary>
+        /// Validates the user input of the RegDeadline field.
+        /// </summary>
+        /// <remarks>
+        /// Field is valid if:
+        /// 1. Field is not empty
+        /// 2. Time is not after start time
+        /// </remarks>
+        /// <returns>
+        /// true if field is valid; false otherwies
+        /// </returns>
+        private bool ValidateInput_RegDeadline()
+        {
+            //Check time is present
+            if (string.IsNullOrEmpty(RegDeadlineCtr.Text))
+            {
+                msgLbl.Text = "Registration Deadline is required";
+                return false;
+            }
+
+
+            //Check that time is before start time
+            DateTime formRegDeadline = FormRegDeadline;
+            DateTime formStartTime = FormStartTime;
+            if (formRegDeadline == DateTime.MinValue)
+            {
+                msgLbl.Text = "Registration Deadline is invalid";
+                return false;
+            }
+            else if (formRegDeadline >= formStartTime)
+            {
+                msgLbl.Text = "Registration Deadline is after start time";
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Validate that the agreement checkbox is checked.
+        /// </summary>
+        /// <returns>
+        /// true if box is checked; false otherwise.
+        /// </returns>
         private bool ValidateAgreeCondition()
         {
             if (!agreeChk.Checked)
@@ -81,6 +127,25 @@ namespace AUInterconnect.Events
 
             return true;
         }
+        
+        /// <summary>
+        /// Gets the Registration Deadline DateTime value from the form.
+        /// </summary>
+        private DateTime FormRegDeadline
+        {
+            get
+            {
+                return FormatHelper.ParseDateTimeOrMinValue(RegDeadlineCtr.Text);
+            }
+        }
+
+        public DateTime FormStartTime
+        {
+            get
+            {
+                return FormatHelper.ParseDateTimeOrMinValue(StartTimeCtr.Text);
+            }
+        }
 
         /// <summary>
         /// Insert a new event into the database and return the event ID.
@@ -90,11 +155,11 @@ namespace AUInterconnect.Events
         {
             string queryStr =
                 "INSERT INTO Events (creatorId, createTime, guestLimit, hostOrg, " +
-                "hostName, hostEmail, hostPhone, eventName, startTime, endTime, " +
+                "hostName, hostEmail, hostPhone, eventName, startTime, endTime, regDeadline, " +
                 "location, descr, meetLocation, meetTime, transportation, requestDrivers, " +
                 "costs, equipment, food, other) " +
                 "VALUES (@creatorId, @createTime, @guestLimit, @hostOrg, @hostName, " +
-                "@hostEmail, @hostPhone, @eventName, @startTime, @endTime, " +
+                "@hostEmail, @hostPhone, @eventName, @startTime, @endTime, @regDeadline, " +
                 "@location, @descr, @meetLocation, @meetTime, @transportation, " +
                 "@requestDrivers, @costs, @equipment, @food, @other)";
 
@@ -123,9 +188,11 @@ namespace AUInterconnect.Events
                 command.Parameters.Add(new SqlParameter("eventName",
                     EventName.Text.Trim()));
                 command.Parameters.Add(new SqlParameter("startTime",
-                    DateTime.Parse(StartTime.Text)));
+                    DateTime.Parse(StartTimeCtr.Text)));
                 command.Parameters.Add(new SqlParameter("endTime",
-                    DateTime.Parse(EndTime.Text)));
+                    DateTime.Parse(EndTimeCtr.Text)));
+                command.Parameters.Add(new SqlParameter("regDeadline",
+                    DateTime.Parse(RegDeadlineCtr.Text)));
                 command.Parameters.Add(new SqlParameter("location",
                     Location.Text.Trim()));
                 command.Parameters.Add(new SqlParameter("descr",

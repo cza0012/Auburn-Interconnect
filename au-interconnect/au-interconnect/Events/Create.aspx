@@ -36,14 +36,13 @@ td
 
 <script language="javascript" type="text/javascript">
     $(function () {
-        $('#<%= StartTime.ClientID %>').datetimepicker(
+        $('#<%= StartTimeCtr.ClientID %>').datetimepicker(
         {
             ampm: true,
-            stepMinute: 15,
+            stepMinute: 15
         });
-        $('#<%= EndTime.ClientID %>').datetimepicker({ ampm: true, stepMinute: 15,
-        });
-
+        $('#<%= EndTimeCtr.ClientID %>').datetimepicker({ ampm: true, stepMinute: 15});
+        $('#<%= RegDeadlineCtr.ClientID %>').datetimepicker({ ampm: true, stepMinute: 15 });
         $('#<%= MeetTime.ClientID %>').datetimepicker({ ampm: true, stepMinute: 15 });
         $('#<%= HostPhone.ClientID %>').mask("(999) 999-9999");
 
@@ -154,14 +153,23 @@ td
                 </tr>
                 <tr>
                     <td><span class="fieldName"
-                            alt="Description">Time</span></td>
+                            alt="Description">Date and Time</span></td>
                     <td>
-                        <asp:TextBox ID="StartTime" runat="server" Width="138px"></asp:TextBox>
+                        <asp:TextBox ID="StartTimeCtr" runat="server" Width="138px"></asp:TextBox>
                         to
-                        <asp:TextBox ID="EndTime" runat="server" Width="138px"></asp:TextBox>
+                        <asp:TextBox ID="EndTimeCtr" runat="server" Width="138px"></asp:TextBox>
                     </td>
                     <td>
                     </td>
+                 </tr>
+                <tr>
+                    <td>Registration<br />
+                        Deadline</td>
+                    <td>
+                        <asp:TextBox ID="RegDeadlineCtr" runat="server" Width="138px"></asp:TextBox>
+                    </td>
+                    <td>
+                        &nbsp;</td>
                  </tr>
                  <tr>
                     <td><span class="fieldName"

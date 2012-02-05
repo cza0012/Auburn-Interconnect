@@ -156,6 +156,27 @@ namespace AUInterconnect.DataModel
         }
 
         /// <summary>
+        /// Gets the total head count for an event. This is the sum of party sizes
+        /// for all registrations.
+        /// </summary>
+        /// <param name="eventId">The event ID</param>
+        /// <returns>The total head count</returns>
+        public static int GetEventRegHeadCount(int eventId)
+        {
+            string queryStr = "SELECT SUM(headCount) FROM EventRegs WHERE eventId=@eventId";
+            using (SqlConnection con = new SqlConnection(Config.SqlConStr))
+            {
+                SqlCommand command = new SqlCommand(queryStr, con);
+                command.Parameters.Add(new SqlParameter("eventId", eventId));
+                con.Open();
+                object result = command.ExecuteScalar();
+                if (result == DBNull.Value)
+                    return 0;
+                return (int)command.ExecuteScalar();
+            }
+        }
+
+        /// <summary>
         /// Gets the number of participants for an event registration.
         /// </summary>
         /// <param name="userId">The user who made the registration.</param>

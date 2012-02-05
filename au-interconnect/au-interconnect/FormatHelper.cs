@@ -25,5 +25,21 @@ namespace AUInterconnect
             return long.TryParse(s.ToString(), out r) ? r : 0;
             
         }
+
+        /// <summary>
+        /// Returns parsed DateTime or DateTime.MinValue on error.
+        /// </summary>
+        /// <param name="str">String to be parsed</param>
+        /// <returns>
+        /// DateTime value of the string or DateTime.MinValue.
+        /// </returns>
+        public static DateTime ParseDateTimeOrMinValue(string str)
+        {
+            DateTime result;
+            bool con = DateTime.TryParse(str, out result);
+            if (!con)
+                result = DateTime.MinValue;
+            return result;
+        }
     }
 }

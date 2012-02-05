@@ -55,7 +55,6 @@ namespace AUInterconnect.Events
             }
             catch (Exception)
             {
-                //TODO: Display error and log exception.
             }
         }
 
@@ -78,7 +77,7 @@ namespace AUInterconnect.Events
                 if (reader.Read())
                 {
                     HostName.Text = PageHelper.TextToHtmlEncode(reader["hostName"].ToString());
-                    EventCap.Text = EventRegistration.GetEventRegCount(eventId).ToString() + "/" +
+                    EventCap.Text = EventRegistration.GetEventRegHeadCount(eventId).ToString() + "/" +
                         (reader["guestLimit"] == DBNull.Value ?
                         "No Limit" : reader["guestLimit"].ToString());
                     EventName.Text = PageHelper.TextToHtmlEncode(reader["eventName"].ToString());

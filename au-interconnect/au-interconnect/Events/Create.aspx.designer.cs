@@ -103,22 +103,31 @@ namespace AUInterconnect.Events {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator EventNameReq;
         
         /// <summary>
-        /// StartTime control.
+        /// StartTimeCtr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox StartTime;
+        protected global::System.Web.UI.WebControls.TextBox StartTimeCtr;
         
         /// <summary>
-        /// EndTime control.
+        /// EndTimeCtr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox EndTime;
+        protected global::System.Web.UI.WebControls.TextBox EndTimeCtr;
+        
+        /// <summary>
+        /// RegDeadlineCtr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox RegDeadlineCtr;
         
         /// <summary>
         /// Location control.
